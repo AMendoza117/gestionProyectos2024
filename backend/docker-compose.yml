@@ -1,0 +1,11 @@
+# Los archivos docker-compose.yml son versionados, lo que significa que es muy importante indicar la versión de las instrucciones que queremos darle.
+version: "20.1"
+# Servidor nginx
+services:
+  web:
+    build: ./docker
+    # Puerto 8080 
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
