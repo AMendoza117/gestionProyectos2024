@@ -1,0 +1,21 @@
+<div *ngIf="!showChat" class="chat-toggle" (click)="toggleChat()">
+  <img src="../../../assets/img/icons/mapa-del-sitio.png" alt="MapaDelSitio" style="height: 50px; width: 100%;">
+</div>
+
+<div class="chat-container" *ngIf="showChat">
+  <div class="chat-header">
+    <h1>Mapa del Sitio</h1>
+    <button class="close-button" (click)="toggleChat()">X</button>
+  </div>
+  <div class="chat-messages">
+    <ul>
+      <li><a href="/dashboard">Inicio</a></li>
+      <li>
+        <ul>
+          <li><a href="/registrar/proyecto">Crear Proyecto</a></li>
+          <li><a href="/ver/proyecto/id">Descripcion Proyecto</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

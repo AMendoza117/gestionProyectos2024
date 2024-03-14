@@ -1,0 +1,189 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/Dashboard">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="/ver-proyecto">Descripcion proyecto</a></li>
+  </ol>
+</nav>
+<!-- ver-proyecto.component.html -->
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Detalles del Proyecto</h3>
+                    </div>
+                    <div class="card-body">
+                        <div *ngIf="verProyecto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Atributo</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Nombre del Proyecto</td>
+                                        <td>{{ verProyecto.nombreProyecto }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Folio</td>
+                                        <td>{{ verProyecto.folio }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Descripción</td>
+                                        <td>{{ verProyecto.descripcion }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha de Inicio</td>
+                                        <td>{{ verProyecto.fechaInicio }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fecha de Término</td>
+                                        <td>{{ verProyecto.fechaTermino }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Estado del Proyecto</td>
+                                        <td>{{ verProyecto.estadoProyecto }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Costo</td>
+                                        <td>{{ verProyecto.costo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Líder del Proyecto</td>
+                                        <td>{{ verProyecto.nombreLiderProyecto }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-primary" (click)="terminado(idProyecto)">Marcar como
+                                terminado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>PDFs</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul>
+                            <li *ngFor="let pdf of verProyecto.pdfs">
+                                <a href="{{ getPDFUrl(pdf) }}" target="_blank">{{ extractFileName(pdf) }}</a>
+                            </li>
+                        </ul>
+
+                        <!-- agregar pdf -->
+                        <div>
+                            <h5>Agregar PDF</h5>
+                            <!--form (ngSubmit)="agregarDocumento()" enctype="multipart/form-data">
+                                <label for="pdfFile">Seleccionar PDF:</label>
+                                <input type="file" id="pdfFile" (change)="onFileChange($event)" name="pdfFile"
+                                    accept=".pdf" required>
+
+                                <button type="submit" style="margin-left: 10px;" class="btn btn-primary" [disabled]="documentoForm.invalid">Agregar
+                                    PDF</button>
+                            </!--form>
+                        </div>
+                        < fin agregar pdf -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Stakeholders</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Completo</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Teléfono</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let stakeholder of verProyecto.stakeholders">
+                                    <td>{{ stakeholder.nombreCompleto }}</td>
+                                    <td>{{ stakeholder.correoElectronico }}</td>
+                                    <td>{{ stakeholder.telefono }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Formulario para agregar Stakeholder -->
+                        <div>
+                            <h5>Agregar Stakeholder</h5>
+                            <form (ngSubmit)="agregarStakeholder()">
+                                <label for="nombreCompleto" style="margin: 10px;">Nombre Completo:</label>
+                                <input type="text" id="nombreCompleto" [(ngModel)]="nuevoStakeholder.nombreCompleto"
+                                    name="nombreCompleto" required>
+
+                                <label for="correoElectronico" style="margin: 10px;">Correo Electrónico:</label>
+                                <input type="email" id="correoElectronico"
+                                    [(ngModel)]="nuevoStakeholder.correoElectronico" name="correoElectronico" required>
+
+                                <label for="telefono" style="margin: 10px;">Teléfono:</label>
+                                <input type="tel" id="telefono" [(ngModel)]="nuevoStakeholder.telefono" name="telefono"
+                                    required>
+
+                                <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Agregar Stakeholder</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Pagos parciales</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Monto</th>
+                                    <th>Fecha de pago</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let pagoParcial of verProyecto.pagosParciales">
+                                    <td>{{ pagoParcial.monto }}</td>
+                                    <td>{{ pagoParcial.fechaPago }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Formulario para agregar pago -->
+                        <div>
+                            <h5>Agregar pago</h5>
+                            <form (ngSubmit)="agregarPagoParcial()">
+                                <label for="nombreCompleto" style="margin: 10px;">Monto:</label>
+
+                                <input type="number" id="monto" [(ngModel)]="nuevoPagoParcial.monto"
+                                    name="nombreCompleto" required>
+
+                                <label for="fecha" style="margin: 10px;">Fecha:</label>
+                                <input type="date" id="fecha" [(ngModel)]="nuevoPagoParcial.fechaPago" name="fecha"
+                                    required>
+                                <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Agregar pago</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
