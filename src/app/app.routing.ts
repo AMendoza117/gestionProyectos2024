@@ -10,6 +10,7 @@ import { NucleoiconsComponent } from './components/nucleoicons/nucleoicons.compo
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegistrarProyectoComponent } from './components/registrar-proyecto/registrar-proyecto.component';
 import { VerProyectoComponent } from './components/ver-proyecto/ver-proyecto.component';
+import { AuthGuardService } from './services/auth.guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,9 +19,9 @@ const routes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'nucleoicons', component: NucleoiconsComponent },
 
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'registrar-proyecto', component: RegistrarProyectoComponent},
-  { path: 'ver-proyecto/:id', component: VerProyectoComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+  { path: 'registrar-proyecto', component: RegistrarProyectoComponent, canActivate: [AuthGuardService]},
+  { path: 'ver-proyecto/:id', component: VerProyectoComponent, canActivate: [AuthGuardService]},
 ];
 
 @NgModule({

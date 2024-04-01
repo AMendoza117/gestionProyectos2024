@@ -7,7 +7,7 @@
                     <div class="angular-logo">
                         <img src="assets/img/angular2-logo.png" alt="">
                     </div>
-                    <h1 class="presentation-title">Gestor de proyectos</h1>
+                    <h1 class="presentation-title">Gestor de Proyectos</h1>
                     <div class="fog-low">
                         <img src="assets/img/fog-low.png" alt="">
                     </div>
@@ -22,310 +22,49 @@
         <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
     </div>
     <div class="main">
-      <app-basicelements></app-basicelements>
-      <app-navigation></app-navigation>
-      <div class="section">
-          <div class="container">
-              <div class="row">
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Progress Bar</h3>
-                          <br/>
-                      </div>
-                      <ngb-progressbar type="success" class="mt-0" [value]="25">25</ngb-progressbar><br>
-                      <ngb-progressbar type="info" class="mt-0" [value]="50"><span class="h6 mb-0">Copying file <b>2 of 4</b> ...</span></ngb-progressbar><br>
-                      <ngb-progressbar type="warning" class="mt-0" [value]="75" [striped]="true" [animated]="true"><i>50%</i></ngb-progressbar><br>
-                      <ngb-progressbar type="danger" class="mt-0" [value]="100" [striped]="true">Completed!</ngb-progressbar>
-
-                  </div>
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Pagination</h3>
-                          <br/>
-                      </div>
-                      <ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
-                      <br/>
-                      <ngb-pagination [collectionSize]="100" [(page)]="page1" [maxSize]="5" [rotate]="true"></ngb-pagination>
-                  </div>
-              </div>
-              <br/>
-              <div class="row">
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Navigation Tabs</h3>
-                      </div>
-
-                      <div class="nav-tabs-navigation">
-                          <div class="nav-tabs-wrapper">
-                              <ngb-tabset [justify]="'center'">
-                                  <ngb-tab title="Home">
-                                      <ng-template ngbTabContent>
-                                          <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
-                                      </ng-template>
-                                  </ngb-tab>
-                                  <ngb-tab title="Profile">
-                                      <ng-template ngbTabContent>
-                                          <p>Here is your profile.</p>
-                                      </ng-template>
-                                  </ngb-tab>
-                                  <ngb-tab title="Messages">
-                                      <ng-template ngbTabContent>
-                                          <p>Here are your messages.</p>
-                                      </ng-template>
-                                  </ngb-tab>
-                              </ngb-tabset>
-                          </div>
-                      </div>
-
-                  </div>
-
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Labels</h3>
-                      </div>
-                      <span class="label label-default">Default</span>
-                      <span class="label label-primary">Primary</span>
-                      <span class="label label-info">Info</span>
-                      <span class="label label-success">Success</span>
-                      <span class="label label-warning">Warning</span>
-                      <span class="label label-danger">Danger</span>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="section section-notifications" id="notifications">
-          <div class="container">
-              <div class="tim-title">
-                  <h3>Notification</h3>
-              </div>
-          </div>
-          <app-notification></app-notification>
-      </div>
-      <app-typography></app-typography>
-      <div class="section javascript-components">
-          <div class="container">
-              <div class="tim-title">
-                  <h2>Angular Native Components</h2>
-              </div>
-              <div class="row" id="modals">
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Modal</h3>
-                      </div>
-                      <app-modal-component></app-modal-component>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Popovers</h3>
-                      </div>
-
-                      <button type="button" class="btn btn-outline-danger btn-round" placement="right"
-                          ngbPopover="Here will be some very useful information about this popover." popoverTitle="Popover on right">
-                          on right
-                      </button>
-
-                      <button type="button" class="btn btn-outline-danger btn-round" placement="top"
-                          ngbPopover="Here will be some very useful information about this popover." popoverTitle="Popover on top">
-                          on top
-                      </button>
-
-                      <button type="button" class="btn btn-outline-danger btn-round" placement="left"
-                          ngbPopover="Here will be some very useful information about this popover." popoverTitle="Popover on left">
-                          on left
-                      </button>
-
-                      <button type="button" class="btn btn-outline-danger btn-round" placement="bottom"
-                          ngbPopover="Here will be some very useful information about this popover." popoverTitle="Popover on bottom">
-                          on bottom
-                      </button>
-
-                  </div>
-                  <br/>
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Datepicker</h3>
-                      </div>
-                      <div class="row">
-                          <div class='col-sm-6'>
-                              <form class="form-inline">
-                                  <div class="form-group">
-                                      <div class="input-group date" [ngClass]="{'input-group-focus':focus===true}">
-                                          <input class="form-control" placeholder="yyyy-mm-dd"
-                                               name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" (focus)="focus=true" (blur)="focus=false" />
-                                          <div class="input-group-append">
-                                              <span class="glyphicon glyphicon-calendar input-group-text">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                              </span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class="tim-title">
-                          <h3>Tooltips</h3>
-                      </div>
-
-                      <button type="button" class="btn btn-outline-danger btn-round" placement="right" ngbTooltip="Tooltip on right">
-                         on right
-                     </button>
-                     <button type="button" class="btn btn-outline-danger btn-round" placement="left" ngbTooltip="Tooltip on left">
-                        on left
-                     </button>
-                      <button type="button" class="btn btn-outline-danger btn-round" placement="top" ngbTooltip="Tooltip on top">
-                         on top
-                      </button>
-                      <button type="button" class="btn btn-outline-danger btn-round" placement="bottom" ngbTooltip="Tooltip on bottom">
-                         on bottom
-                      </button>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="section" id="carousel">
-          <div class="container">
-              <div class="tim-title">
-                  <h3>Carousel</h3>
-              </div>
-              <div class="row">
-                  <div class="col-md-8 mr-auto ml-auto">
-                      <div class="card page-carousel">
-                          <ngb-carousel>
-                              <ng-template ngbSlide>
-                                  <img src="./assets/img/soroush-karimi.jpg" alt="Random first slide">
-                                  <div class="carousel-caption">
-                                      <p>Somewhere</p>
-                                  </div>
-                              </ng-template>
-                              <ng-template ngbSlide>
-                                  <img src="./assets/img/federico-beccari.jpg" alt="Random second slide">
-                                  <div class="carousel-caption">
-                                      <p>Somewhere else</p>
-                                  </div>
-                              </ng-template>
-                              <ng-template ngbSlide>
-                                  <img src="./assets/img/joshua-stannard.jpg" alt="Random third slide">
-                                  <div class="carousel-caption">
-                                      <p>Here it is</p>
-                                  </div>
-                              </ng-template>
-                          </ngb-carousel>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-        <div class="section section-dark section-nucleo-icons">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12">
-                        <h2 class="title">Nucleo Icons</h2><br/>
-                        <p class="description">
-                            Now UI Kit comes with 100 custom icons made by our friends from NucleoApp. The official package contains over 2.100 thin icons which are looking great in combination with Now UI Kit Make sure you check all of them and use those that you like the most.
-                        </p><br/>
-                        <a [routerLink]="['/nucleoicons']" class="btn btn-danger btn-round">View Demo Icons</a>
-                        <a href="https://nucleoapp.com/?ref=1712" class="btn btn-outline-danger btn-round" target="_blank">View All Icons</a>
-                    </div>
-
-                    <div class="col-lg-6 col-md-12">
-                        <div class="icons-container">
-                            <i class="nc-icon nc-time-alarm"></i>
-                            <i class="nc-icon nc-atom"></i>
-                            <i class="nc-icon nc-camera-compact"></i>
-                            <i class="nc-icon nc-watch-time"></i>
-                            <i class="nc-icon nc-key-25"></i>
-                            <i class="nc-icon nc-diamond"></i>
-                            <i class="nc-icon nc-user-run"></i>
-                            <i class="nc-icon nc-layout-11"></i>
-                            <i class="nc-icon nc-badge"></i>
-                            <i class="nc-icon nc-bulb-63"></i>
-                            <i class="nc-icon nc-favourite-28"></i>
-                            <i class="nc-icon nc-planet"></i>
-                            <i class="nc-icon nc-tie-bow"></i>
-                            <i class="nc-icon nc-zoom-split"></i>
-                            <i class="nc-icon nc-cloud-download-93"></i>
+        
+        <div class="page-content">
+            <div>
+                <div class="da-section da-work" id="nosotros" style="background-color:var(--color-bg-seccion1)!important;">
+                    <div class="container margin-container">
+                        <div class="h1 pb-1 text-center" data-aos="" style="color:var(--color-txt-seccion-1); text-align: justify;">Nosotros</div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-6" style="color:var(--color-txt-seccion-1);text-align: justify;">
+                                <p class="h3 pb-3">Somos una empresa dedicada a la creación de soluciones de software para la gestión de proyectos. Nuestra aplicación está diseñada para ayudar a las empresas a planificar, organizar y administrar sus proyectos de manera eficiente.</p>
+                                <br>
+                                <p class="h2 pb-2">Características principales:</p>
+                                <br>
+                                <ul>
+                                    <li class="h3 pb-3">Planificación de proyectos: Nuestra aplicación permite a los usuarios definir metas, establecer plazos y asignar tareas a los miembros del equipo. También proporciona una visión general del progreso del proyecto en tiempo real.</li>
+                                    <br>
+                                    <li class="h3 pb-3">Colaboración en equipo: Facilitamos la comunicación y colaboración entre los miembros del equipo. Los usuarios pueden compartir documentos, discutir ideas y resolver problemas juntos en un solo lugar.</li>
+                                    <br>
+                                    <li class="h3 pb-3">Seguimiento del tiempo y presupuesto: Con nuestra aplicación, puedes realizar un seguimiento del tiempo dedicado a cada tarea y mantener un registro del presupuesto del proyecto. Esto ayuda a garantizar que el proyecto se mantenga dentro del plazo y el presupuesto establecidos.</li>
+                                    <br>
+                                    <li class="h3 pb-3">Informes personalizables: Nuestra aplicación genera informes detallados que te ayudan a entender el rendimiento del proyecto y a tomar decisiones informadas.</li>
+                                    <br>
+                                    <li class="h3 pb-3">Integraciones: Nuestra aplicación se integra con otras herramientas populares como Microsoft Office, Google Drive, Slack, entre otras, para proporcionar una experiencia de gestión de proyectos sin interrupciones.</li>
+                                    <br>
+                                    <li class="h3 pb-3">Estamos comprometidos con la satisfacción del cliente y ofrecemos soporte técnico 24/7 para asegurarnos de que tu experiencia con nuestra aplicación sea fluida y productiva. Si estás interesado en mejorar la gestión de proyectos en tu empresa, ¡nos encantaría tener la oportunidad de trabajar contigo.</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 col-lg-6">
+                                <img style="float: right; max-width: 100%;" src="assets/img/imagen1.jpg">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="section section-dark">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">Completed with examples</h2>
-                        <p class="description">The kit comes with three pre-built pages to help you get started faster. You can change the text and images and you're good to go. More importantly, looking at them will give you a picture of what you can built with this powerful kit.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section section-dark">
-            <div class="container">
-                <div class="row example-page">
-                    <div class="col-md-6 text-center" routerLinkActive="active">
-                        <a [routerLink]="['/landing']">
-                            <img src="./assets/img/examples/landing-page.JPG" alt="Rounded Image" class="img-rounded img-responsive" style="width: 100%">
-                            <a [routerLink]="['/landing']" class="btn btn-outline-neutral btn-round">Landing Page</a>
-                        </a>
-                    </div>
-
-                    <div class="col-md-6 text-center" routerLinkActive="active">
-                        <a [routerLink]="['/user-profile']">
-                            <img src="./assets/img/examples/profile-page.JPG" alt="Rounded Image" class="img-rounded img-responsive" style="width: 100%">
-                            <a [routerLink]="['/user-profile']" class="btn btn-outline-neutral btn-round">Profile Page</a>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title">Do you like what you see?</h2>
-                        <p class="description">Cause if you do, it can be yours for Free. Hit the button below and download it. Start a new project or give an old Bootstrap 4 project a new look.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 download-area ml-auto mr-auto">
-                        <a href="https://www.creative-tim.com/product/paper-kit-2" class="btn btn-warning btn-round">Download free HTML</a>
-                        <a href="https://www.creative-tim.com/product/paper-kit-2-angular" class="btn btn-danger btn-round">Download free Angular</a>
-                    </div>
-                </div>
-                <div class="row justify-content-md-center sharing-area text-center">
-                    <div class="text-center col-md-12 col-lg-8">
-                        <h3>Thank you for supporting us!</h3>
-                    </div>
-                    <div class="text-center col-md-12 col-lg-8">
-                        <a href="#pablo" class="btn btn-twitter-bg twitter-sharrre btn-round" rel="tooltip" title="Tweet!">
-                            <i class="fa fa-twitter"></i> Twitter
-                        </a>
-                        <a href="#pablo" class="btn btn-google-bg linkedin-sharrre btn-round" rel="tooltip" title="Share!">
-                            <i class="fa fa-google-plus"></i> Google
-                        </a>
-                        <a href="#pablo" class="btn btn-facebook-bg facebook-sharrre btn-round" rel="tooltip" title="Share!">
-                            <i class="fa fa-facebook-square"></i> Facebook
-                        </a>
-                        <a href="https://github.com/creativetimofficial/paper-kit" class="btn btn-github-bg btn-github sharrre btn-round" rel="tooltip" title="Star on Github">
-                            <i class="fa fa-github"></i> Star
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+      
 <div class="main">
     <div class="section text-center">
     <div class="container">
         <div class="row">
             <div class="col-md-8 mr-auto ml-auto">
-                <h2 class="title">Let's talk product</h2>
-                <h5 class="description">This is the paragraph where you can write more details about your product. Keep you user engaged by providing meaningful information. Remember that by this time, the user is curious, otherwise he wouldn't scroll to get here. Add a button if you want the user to see more.</h5>
-                <br>
-                <a href="#paper-kit" class="btn btn-danger btn-round">See Details</a>
+                <h1 class="title">Más infromación sobre el producto</h1>
+                <h3 class="description">Este producto ofrece una gran variedad de herramientas, las cuales permiten a las empresas tener una mejor gestión de sus proyectos, para así poder realizarlos de manera eficaz.</h3>
             </div>
         </div>
         <br/><br/>
@@ -385,23 +124,16 @@
 
 <div class="section section-dark text-center">
     <div class="container">
-        <h2 class="title">Let's talk about us</h2>
+        <h2 class="title">Socios Clave</h2>
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img src="./assets/img/faces/clem-onojeghuo-3.jpg" alt="..."></a>
+                        <a href="#avatar"><img src="./assets/img/amazon.png" alt="..."></a>
                     </div>
                     <div class="card-block">
                         <a href="#paper-kit">
-                            <div class="author">
-                                <h4 class="card-title">Henry Ford</h4>
-                                <h6 class="card-category">Product Manager</h6>
-                            </div>
                         </a>
-                        <p class="card-description text-center">
-                        Teamwork is so important that it is virtually impossible for you to reach the heights of your capabilities or make the money that you want without becoming very good at it.
-                        </p>
                     </div>
                     <div class="card-footer text-center">
                         <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-twitter"></i></a>
@@ -414,18 +146,10 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img src="./assets/img/faces/joe-gardner-2.jpg" alt="..."></a>
+                        <a href="#avatar"><img src="./assets/img/dropbox.jpg" alt="..."></a>
                     </div>
                     <div class="card-block">
-                        <a href="#paper-kit">
-                            <div class="author">
-                                <h4 class="card-title">Sophie West</h4>
-                                <h6 class="card-category">Designer</h6>
-                            </div>
-                        </a>
-                        <p class="card-description text-center">
-                        A group becomes a team when each member is sure enough of himself and his contribution to praise the skill of the others. No one can whistle a symphony. It takes an orchestra to play it.
-                        </p>
+                        <a href="#paper-kit"></a>
                     </div>
                     <div class="card-footer text-center">
                         <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-twitter"></i></a>
@@ -438,18 +162,10 @@
             <div class="col-md-4">
                 <div class="card card-profile card-plain">
                     <div class="card-avatar">
-                        <a href="#avatar"><img src="./assets/img/faces/erik-lucatero-2.jpg" alt="..."></a>
+                        <a href="#avatar"><img src="./assets/img/cocacola.webp" alt="..."></a>
                     </div>
                     <div class="card-block">
-                        <a href="#paper-kit">
-                            <div class="author">
-                                <h4 class="card-title">Robert Orben</h4>
-                                <h6 class="card-category">Developer</h6>
-                            </div>
-                        </a>
-                        <p class="card-description text-center">
-                        The strength of the team is each individual member. The strength of each member is the team. If you can laugh together, you can work together, silence isn’t golden, it’s deadly.
-                        </p>
+                        <a href="#paper-kit"></a>
                     </div>
                     <div class="card-footer text-center">
                         <a href="#pablo" class="btn btn-link btn-just-icon btn-neutral"><i class="fa fa-twitter"></i></a>
@@ -461,38 +177,37 @@
         </div>
     </div>
 </div>
-
     <div class="section landing-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 mr-auto ml-auto">
-                    <h2 class="text-center">Keep in touch?</h2>
+                    <h2 class="text-center">Dudas o Sugerencias</h2>
                     <form class="contact-form">
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Name</label>
+                                <label>Nombre</label>
                                 <div class="input-group" [ngClass]="{'input-group-focus':focus===true}">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text"><i class="nc-icon nc-single-02"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Name" (focus)="focus=true" (blur)="focus=false" >
+                                    <input type="text" class="form-control" placeholder="Nombre" (focus)="focus=true" (blur)="focus=false" >
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label>Email</label>
+                                <label>Correo</label>
                                 <div class="input-group" [ngClass]="{'input-group-focus':focus1===true}">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">  <i class="nc-icon nc-email-85"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" placeholder="Email" (focus)="focus1=true" (blur)="focus1=false" >
+                                    <input type="text" class="form-control" placeholder="Correo" (focus)="focus1=true" (blur)="focus1=false" >
                                 </div>
                             </div>
                         </div>
-                        <label>Message</label>
-                        <textarea class="form-control" rows="4" placeholder="Tell us your thoughts and feelings..."></textarea>
+                        <label>Escriba aquí:</label>
+                        <textarea class="form-control" rows="4" placeholder="Escriba su mensaje"></textarea>
                         <div class="row">
                             <div class="col-md-4 mr-auto ml-auto">
-                                <button class="btn btn-danger btn-lg btn-fill">Send Message</button>
+                                <button class="btn btn-danger btn-lg btn-fill">Enviar</button>
                             </div>
                         </div>
                     </form>
