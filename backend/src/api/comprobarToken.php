@@ -24,6 +24,7 @@ if (mysqli_num_rows($resultado1) == 1) {
     $consulta2 = "UPDATE usuarios SET password = '$hashed_password' WHERE token = '$token'";
     if (mysqli_query($con, $consulta2)) {
         echo json_encode(['success' => true]);
+        $consulta3 = "UPDATE usuarios SET token = '' WHERE token = '$token'";
     } else {
         echo json_encode(['success' => false, 'error' => mysqli_error($con)]);
     }

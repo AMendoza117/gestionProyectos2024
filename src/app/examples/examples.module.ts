@@ -13,6 +13,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'app/app.routing';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GetTokenComponent } from 'app/components/recuperarContraseña/getToken/getToken.component';
+import { ActualizarContraseñaComponent } from 'app/components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 
 @NgModule({
     imports: [
@@ -30,6 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     declarations: [
         LandingComponent,
         SignupComponent,
+        GetTokenComponent,
+        ActualizarContraseñaComponent
     ],
     // Provee los servicios necesarios
     providers: [

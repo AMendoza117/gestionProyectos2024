@@ -5,11 +5,11 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                     <div class="card card-register">
-                        <h3 class="title">Bienvenido</h3>
+                        <h3 class="title">Ingresa el correo de la cuenta</h3>
                         <div class="social-line text-center">
 
                         </div>
-                        <form class="register-form" (submit)="login()">
+                        <form class="register-form" (submit)="recuperarContrasena()">
                             <label>Correo</label>
                             <div class="input-group form-group-no-border"
                                 [ngClass]="{'input-group-focus': focus === true}">
@@ -22,24 +22,10 @@
                                     name="username" (focus)="focus = true" (blur)="focus = false">
                             </div>
 
-                            <label>Contraseña</label>
-                            <div class="input-group form-group-no-border"
-                                [ngClass]="{'input-group-focus': focus1 === true}">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="nc-icon nc-key-25"></i>
-                                    </span>
-                                </div>
-                                <input type="password" class="form-control" placeholder="Contraseña"
-                                    [(ngModel)]="password" name="password" (focus)="focus1 = true"
-                                    (blur)="focus1 = false">
-                            </div>
-                            <button type="submit" class="btn btn-danger btn-block btn-round">Iniciar sesión</button>
+                            
+                            <button type="submit" class="btn btn-danger btn-block btn-round">Recuperar contraseña</button>
                         </form>
 
-                        <div class="forgot">
-                            <a (click)="rc()" class="btn btn-link btn-danger">Olvidaste la contraseña?</a>
-                        </div>
                     </div>
                 </div>
             </div>

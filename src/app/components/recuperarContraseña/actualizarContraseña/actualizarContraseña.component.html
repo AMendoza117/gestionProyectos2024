@@ -5,24 +5,24 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                     <div class="card card-register">
-                        <h3 class="title">Bienvenido</h3>
+                        <h3 class="title">Actualiza tu contraseña</h3>
                         <div class="social-line text-center">
 
                         </div>
                         <form class="register-form" (submit)="login()">
-                            <label>Correo</label>
+                            <label>Token</label>
                             <div class="input-group form-group-no-border"
                                 [ngClass]="{'input-group-focus': focus === true}">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="nc-icon nc-email-85"></i>
+                                        <i class="nc-icon nc-vector"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Correo" [(ngModel)]="username"
-                                    name="username" (focus)="focus = true" (blur)="focus = false">
+                                <input type="text" class="form-control" placeholder="Token" [(ngModel)]="token"
+                                    name="token" (focus)="focus = true" (blur)="focus = false">
                             </div>
 
-                            <label>Contraseña</label>
+                            <label>Nueva contraseña</label>
                             <div class="input-group form-group-no-border"
                                 [ngClass]="{'input-group-focus': focus1 === true}">
                                 <div class="input-group-prepend">
@@ -36,10 +36,6 @@
                             </div>
                             <button type="submit" class="btn btn-danger btn-block btn-round">Iniciar sesión</button>
                         </form>
-
-                        <div class="forgot">
-                            <a (click)="rc()" class="btn btn-link btn-danger">Olvidaste la contraseña?</a>
-                        </div>
                     </div>
                 </div>
             </div>

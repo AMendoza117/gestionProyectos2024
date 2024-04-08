@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once (_DIR_ . "/../lib/PHPMailer/src/PHPMailer.php");
-require_once (_DIR_ . "/../lib/PHPMailer/src/Exception.php");
-require_once (_DIR_ . "/../lib/PHPMailer/src/SMTP.php");
+require_once ("./../lib/PHPMailer/src/PHPMailer.php");
+require_once ("./../lib/PHPMailer/src/Exception.php");
+require_once ("./../lib/PHPMailer/src/SMTP.php");
 
 require_once './authService.php';
 require_once 'middlewares/allowCors.php';
@@ -17,7 +17,12 @@ function getJsonPostData()
   return $data;
 }
 
-$to = $request->correoElectronico;
+$postData = getJsonPostData();
+
+$email = $postData->email;
+$password = $postData->password;
+$to = $postData->correoElectronico; // Corrección de asignación de $to
+
 function sendEmail($to, $token)
 {
   try {
@@ -28,7 +33,7 @@ function sendEmail($to, $token)
     $nremitente = 'GestionProyectos';
 
     // Create an instance of PHPMailer.
-    @$mail = new PHPMailer(true);
+    $mail = new PHPMailer(true); // Eliminación del @ antes de new
 
     // Configure the email sending parameters.
     $mail->isSMTP();
@@ -39,6 +44,7 @@ function sendEmail($to, $token)
     $mail->Password = 'jcivdngndtyspzrz';
     $mail->SMTPSecure = 'tls';
 
+    $verificationLinkWithToken = 'http://localhost:4200/' . "?token=" . $token;
     // Nuevas configuraciones para CORS
     $mail->SMTPKeepAlive = true;
     $mail->Timeout = 30;
@@ -58,18 +64,52 @@ function sendEmail($to, $token)
 
     $mail->Subject = $subject;
 
-    $txt = '<html>
-        <!-- ... (tu contenido HTML) ... -->
+ 
+    if ($verificationLinkWithToken != "") {
+      $txt = '<tr>
+                                        <td align=\'left\'>
+                                          <table>
+                                            <tr>
+                                              <td align=\'left\' style=\'background-color: #2488DF; padding:15px 18px;-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;\'>
+                                                <div class="contentEditableContainer contentTextEditable">
+                                                  <div class="contentEditable" align=\'center\'>
+                                                    <a target=\'_blank\' href=\'' . $verificationLinkWithToken . '\' class=\'link2\' style=\'color:#ffffff;\'>Acceder</a>
+                                                  </div>
+                                                </div>
+                                              </td>
+                                            </tr>
+                                          </table>
+                                        </td>
+                                      </tr>
+
+                                      <tr>
+                                        <td height=\'2\'> </td>
+                                      </tr>
+                                      
+                                      <tr>
+                                      <td align=\'left\'>
+                                      <div class="contentEditableContainer contentTextEditable">
+                                        <div class="contentEditable" align=\'left\'>
+                                          <p style="color: #999;">
+                                          El enlace tiene una caducidad de 15 minutos, al cumplirse el tiempo establecido usted deberá iniciar sesión nuevamente. 
+                                          </p>
+                                        </div>
+                                      </div>
+                                    </td>
+                                      </tr>';
+    }
+
+    $txt .= '<tr>
         </html>';
 
-    $mail->Body = $message;
+    $mail->Body = $txt;
 
     // Attempt to send the email and handle errors.
     if ($mail->send()) {
       echo json_encode(array("message" => "Correo electrónico enviado con éxito."));
     } else {
       http_response_code(500);
-      echo json_encode(array("error" => "Error al enviar el correo electrónico."));
+      echo json_encode(array("error" => "Error al enviar el correo electrónico. $to"));
     }
     // Código para enviar el correo electrónico con PHPMailer
   } catch (Exception $e) {
@@ -77,18 +117,10 @@ function sendEmail($to, $token)
   }
 }
 
-
-$postData = getJsonPostData();
-$email = $postData->email;
-$password = $postData->password;
-
 $authService = new AuthService();
+// Authenticate the user and generate a token.
+$login1 = $authService->verifyUserAndSendToken($email, $con);
 
-try {
-  // Authenticate the user and generate a token.
-  $login1 = $authService->verifyUserAndSendToken($email, $con);
-
-  //Send the authentication token via email
-  sendEmail($email, $login1["access_token_email"]);
-
-}
+//Send the authentication token via email
+sendEmail($to, $login1["access_token_email"]); // Corrección del parámetro enviado a sendEmail
+?>

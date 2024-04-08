@@ -26,12 +26,18 @@ export class SignupComponent implements OnInit {
                 this.router.navigate([this.authService.getRedirectUrl()]);
                 this.toastr.success('Inicio de sesión correcto', 'Bienvenid@');
             } else {
-                 this.toastr.error('Datos incorrectos', 'Error');
+                this.toastr.error('Datos incorrectos', 'Error');
                 console.log('Error de inicio de sesión');
             }
         });
     }
+
+    rc() {
+        // Navegar a la ruta del componente al que deseas dirigirte
+        this.router.navigate(['/recuperar-contrasena']);
+    }
 }
+
 
 /*
 import { Component, OnInit } from '@angular/core';

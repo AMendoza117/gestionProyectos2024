@@ -37,7 +37,6 @@ export class ApiService {
 
     return this.http.get<Stakeholder[]>(url, { headers });
   }
-
   // Cargar responsables
   loadResponsables(): Observable<Responsable[]> {
     const url = `${this.apiUrl}/api/loadResponsables.php`;
@@ -157,6 +156,24 @@ export class ApiService {
     const credentials = { username, password };
 
     const url = `${this.apiUrl}/api/login.php`; 
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, credentials, { headers });
+  }
+
+  recuperarContrasena(username: string): Observable<any> {
+    const credentials = { username };
+
+    const url = `${this.apiUrl}/api/generarToken.php`; 
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, credentials, { headers });
+  }
+
+  actualizarContraseña(token: string, password: string): Observable<any> {
+    const credentials = { token, password};
+
+    const url = `${this.apiUrl}/api/comprobarToken.php`; 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, credentials, { headers });

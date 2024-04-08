@@ -2,10 +2,11 @@
 
 use Firebase\JWT\ExpiredException;
 
-require_once(_DIR_ . "/../../../lib/php-jwt/vendor/autoload.php");
+require_once("./../lib/php-jwt/vendor/autoload.php");
 
+include 'database.php';
 use \Firebase\JWT\JWT;
-
+/*
 class AuthService
 {
 
@@ -18,7 +19,7 @@ class AuthService
 
 
     //==========================================================================================================
-    public function loginWithToken($token, $con)
+/*    public function loginWithToken($token, $con)
     {
         // Authenticate the user using the provided token
         $user = $this->getUserFromToken($token, $con);
@@ -37,14 +38,14 @@ class AuthService
         );
     }
 
-
-    public function verifyUserAndSendToken($email, $con)
+*//*
+    public function verifyUserAndSendToken($to, $con)
     {
         // Find the user by email
-        $user = $this->findUserById($email, $con);
+        $user = $this->findUserById($to, $con);
 
         // Check if the user exists
-        if (!$user) {
+    /*    if (!$user) {
             throw new UserNotExistException("User incorrect");
         }
 
@@ -56,10 +57,10 @@ class AuthService
             "access_token_email" => $access_token_email,
         );
 
-    }
+    }*/
 
     //=================================================================================================================================
-    public function login($email, $pass, $con)
+  /*  public function login($email, $pass, $con)
     {
         $user = $this->findUserById($email, $con);
         if (!$user) {
@@ -95,16 +96,16 @@ class AuthService
             "access_token" => $access_token,
             "refresh_token" => $refresh_token,
         );
-    }
-
+    }*/
+/*
     public function authenticate($token, $con)
     {
         $user = $this->getUserFromToken($token, $con);
         if ($user) {
             $this->setLoggedUser($user);
         }
-    }
-
+    }*/
+/*
     public function refreshToken($token, $con)
     {
         $user = $this->getUserFromToken($token, $con);
@@ -116,8 +117,9 @@ class AuthService
             "access_token" => $access_token,
             "refresh_token" => $refresh_token,
         );
-    }
+    }*/
 
+    /*
     private function getUserFromToken($token, $con)
     {
         try {
@@ -149,9 +151,9 @@ class AuthService
         self::$loggedUser = $user;
     }
 
-    private function findUserById($id, $con)
-    {
-        $sequreId = mysqli_real_escape_string($con, trim($id));
+    private function findIdByEmail($to, $con){
+        $sequreId = mysqli_real_escape_string($con, trim($to));
+
         $query = "SELECT * FROM QSC_USUARIOS WHERE id_user ='$sequreId' LIMIT 1";
         $result = mysqli_query($con, $query);
         if ($result->num_rows == 0) {
@@ -161,28 +163,16 @@ class AuthService
         return $user;
     }
 
-    private function incrementUserLoginAttempts($id, $con)
+    private function findUserById($id, $con)
     {
         $sequreId = mysqli_real_escape_string($con, trim($id));
-
-        $query = "UPDATE QSC_USUARIOS SET num_intentos = num_intentos + 1 WHERE id_user ='$sequreId'";
+        $query = "SELECT * FROM usuarios WHERE id ='$sequreId' LIMIT 1";
         $result = mysqli_query($con, $query);
-    }
-
-    private function resetUserLoginAttempts($id, $con)
-    {
-        $sequreId = mysqli_real_escape_string($con, trim($id));
-
-        $query = "UPDATE QSC_USUARIOS SET num_intentos = 0 WHERE id_user ='$sequreId'";
-        $result = mysqli_query($con, $query);
-    }
-
-    private function lockUser($id, $con)
-    {
-        $sequreId = mysqli_real_escape_string($con, trim($id));
-
-        $query = "UPDATE QSC_USUARIOS SET is_lock = 1 WHERE id_user ='$sequreId'";
-        $result = mysqli_query($con, $query);
+        if ($result->num_rows == 0) {
+            return null;
+        }
+        $user = $result->fetch_object();
+        return $user;
     }
 
     private function findUser($email, $pass, $con)
@@ -199,6 +189,104 @@ class AuthService
         } else {
             return null;
         }
+    }
+
+    public function generateToken($user, $exp_time, $SECRET_KEY)
+    {
+        $payload = array(
+            "iss" => "https://localhost:8080/backend",
+            "aud" => "https://localhost:8080/backend",
+            "iat" => time(),
+            "exp" => time() + $exp_time,
+            "data" => array(
+                "id" => $user->id_user,
+                "name" => $user->n_name,
+                "email" => $user->mail_user,
+            ),
+        );
+
+        $jwt = JWT::encode($payload, $SECRET_KEY);
+        return $jwt;
+    }
+}*/
+
+class AuthService
+{
+    private static ?object $loggedUser = null;
+    public $SECRET_KEY = "xddd"; //key secret
+    public $ACCESS_TOKEN_EXP_TIME = 20 * 60; // 3 minutes
+    public $REFRESH_TOKEN_EXP_TIME = 60 * 60 * 24; // 1 day 
+    private $MAX_LOGIN_ATTEMPTS = 3; // attemps max
+    private $ACCESS_TOKEN_EMAIL_EXP_TIME = 15 * 60; // 15 minutes
+
+
+    private function findIdByEmail($to, $con){
+        // Manejo de errores para mysqli_real_escape_string
+        if (!$con) {
+            // Manejo del error de conexión nula
+            throw new Exception("Error: Conexión a la base de datos no establecida.");
+        }
+
+        $sequreId = mysqli_real_escape_string($con, trim($to));
+
+        $query = "SELECT * FROM QSC_USUARIOS WHERE id_user ='$sequreId' LIMIT 1";
+
+        // Manejo de errores para mysqli_query
+        $result = mysqli_query($con, $query);
+        if (!$result) {
+            // Manejo del error de consulta fallida
+            throw new Exception("Error de consulta: " . mysqli_error($con));
+        }
+
+        if ($result->num_rows == 0) {
+            return null;
+        }
+
+        $user = $result->fetch_object();
+        return $user;
+    }
+
+    public function verifyUserAndSendToken($to, $con)
+    {
+        // Find the user by email
+        $user = $this->findUserById($to, $con);
+
+        // Check if the user exists
+    /*   if (!$user) {
+            throw new UserNotExistException("User incorrect");
+        }*/
+
+
+        $access_token_email = $this->generateToken($user, $this->ACCESS_TOKEN_EMAIL_EXP_TIME, $this->SECRET_KEY);
+
+        //Prueba
+        return array(
+            "access_token_email" => $access_token_email,
+        );
+
+    }
+    private function findUserById($id, $con)
+    {
+        if (!$con) {
+            // Manejo del error de conexión nula
+            throw new Exception("Error: Conexión a la base de datos no establecida.");
+        }
+
+        $sequreId = mysqli_real_escape_string($con, trim($id));
+        $query = "SELECT * FROM usuarios WHERE id ='$sequreId' LIMIT 1";
+
+        $result = mysqli_query($con, $query);
+        if (!$result) {
+            // Manejo del error de consulta fallida
+            throw new Exception("Error de consulta: " . mysqli_error($con));
+        }
+
+        if ($result->num_rows == 0) {
+            return null;
+        }
+
+        $user = $result->fetch_object();
+        return $user;
     }
 
     public function generateToken($user, $exp_time, $SECRET_KEY)
