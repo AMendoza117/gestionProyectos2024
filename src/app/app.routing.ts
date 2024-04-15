@@ -13,6 +13,7 @@ import { VerProyectoComponent } from './components/ver-proyecto/ver-proyecto.com
 import { AuthGuardService } from './services/auth.guard.service';
 import { GetTokenComponent } from './components/recuperarContraseña/getToken/getToken.component';
 import { ActualizarContraseñaComponent } from './components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
+import { Login2FAComponent } from './examples/login2FA/login2FA.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'registrar-proyecto', component: RegistrarProyectoComponent, canActivate: [AuthGuardService]},
   { path: 'ver-proyecto/:id', component: VerProyectoComponent, canActivate: [AuthGuardService]},
   { path: 'recuperar-contrasena', component: GetTokenComponent},
-  { path: 'actualizar-contrasena', component: ActualizarContraseñaComponent}
+  { path: 'actualizar-contrasena', component: ActualizarContraseñaComponent},
+  { path: 'login2FA', component: Login2FAComponent}
 ];
 
 @NgModule({

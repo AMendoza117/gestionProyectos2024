@@ -25,7 +25,7 @@ $request = json_decode($postdata);
 $username = $request->username;
 
 // Generar un token único
-$token = bin2hex(random_bytes(16)); // Genera un token hexadecimal de 32 caracteres
+$token = bin2hex(random_bytes(8)); // Genera un token hexadecimal de 32 caracteres
 
 // Verificar si el usuario existe en la base de datos
 $consulta = "SELECT * FROM usuarios WHERE username = ?";
@@ -34,21 +34,7 @@ mysqli_stmt_bind_param($stmt, 's', $username);
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
 
-/*if (mysqli_num_rows($resultado) == 1) {
-  // El usuario existe, actualizar el token en la base de datos
-  $consulta_update = "UPDATE usuarios SET token = ? WHERE username = ?";
-  $stmt_update = mysqli_prepare($con, $consulta_update);
-  mysqli_stmt_bind_param($stmt_update, 'ss', $token, $username);
-  if (mysqli_stmt_execute($stmt_update)) {
-    echo json_encode(['success' => true, 'token' => $token]);
-    sendEmail($username, $token);
-  } else {
-    echo json_encode(['success' => false, 'error' => mysqli_error($con)]);
-  }
-} else {
-  // El usuario no existe en la base de datos
-  echo json_encode(['success' => false, 'error' => 'Usuario no encontrado']);
-}*/
+
 if (mysqli_num_rows($resultado) == 1) {
   // El usuario existe, actualizar el token en la base de datos
   $consulta_update = "UPDATE usuarios SET token = ? WHERE username = ?";
@@ -71,8 +57,14 @@ if (mysqli_num_rows($resultado) == 1) {
 function sendEmail($to, $token)
 {
   try {
-    $subject = "Token Para recuperar la contraseña";
+    $subject = "Recuperación de contraseña";
     $message = "Hola ,\n\nEste es el token para recuperar tu contraseña \n\n $token";
+
+    // Cargar el contenido HTML de tu plantilla de correo electrónico
+$html_message = file_get_contents("./../assets/template/recuperarConEmail.html");
+
+// Reemplazar placeholders en la plantilla con datos dinámicos
+$html_message = str_replace("[token]", $token, $html_message);
 
     $remitente = 'arturolopez1997vecino@gmail.com';
     $nremitente = 'GestionProyectos';
@@ -88,6 +80,8 @@ function sendEmail($to, $token)
     $mail->Username = 'arturolopez1997vecino@gmail.com';
     $mail->Password = 'jcivdngndtyspzrz';
     $mail->SMTPSecure = 'tls';
+    $mail->isHTML(true);
+    $mail->CharSet = 'UTF-8';
 
     //$verificationLinkWithToken = 'http://localhost:4200/' . "?token=" . $token;
     // Nuevas configuraciones para CORS
@@ -109,44 +103,7 @@ function sendEmail($to, $token)
 
     $mail->Subject = $subject;
 
- /*
-    if ($verificationLinkWithToken != "") {
-      $txt = '<tr>
-                                        <td align=\'left\'>
-                                          <table>
-                                            <tr>
-                                              <td align=\'left\' style=\'background-color: #2488DF; padding:15px 18px;-webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;\'>
-                                                <div class="contentEditableContainer contentTextEditable">
-                                                  <div class="contentEditable" align=\'center\'>
-                                                    <a target=\'_blank\' href=\'' . $verificationLinkWithToken . '\' class=\'link2\' style=\'color:#ffffff;\'>Acceder</a>
-                                                  </div>
-                                                </div>
-                                              </td>
-                                            </tr>
-                                          </table>
-                                        </td>
-                                      </tr>
-
-                                      <tr>
-                                        <td height=\'2\'> </td>
-                                      </tr>
-                                      
-                                      <tr>
-                                      <td align=\'left\'>
-                                      <div class="contentEditableContainer contentTextEditable">
-                                        <div class="contentEditable" align=\'left\'>
-                                          <p style="color: #999;">
-                                          El enlace tiene una caducidad de 15 minutos, al cumplirse el tiempo establecido usted deberá iniciar sesión nuevamente. 
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </td>
-                                      </tr>';
-    }
-    $txt .= '<tr>
-    </html>';*/
-
-$mail->Body = $message;
+$mail->Body = $html_message;
 
 // Attempt to send the email and handle errors.
 if ($mail->send()) {

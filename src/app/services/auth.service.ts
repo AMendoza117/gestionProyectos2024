@@ -14,12 +14,12 @@ export class AuthService {
 
   constructor(private router: Router, private apiService: ApiService, private toastr: ToastrService) {}
 
-  login(username: string, password: string): Observable<any> {
-    const credentials = { username, password };
+  login(token: string): Observable<any> {
+    const credentials = { token };
     
     // Llama al método `login` de `apiService` para realizar la solicitud al backend
     return new Observable((observer) => {
-      this.apiService.login(username, password).subscribe(
+      this.apiService.login2(token).subscribe(
         (response: any) => {
           if (response.success) {
             this.userRole = response.role; // Almacena el rol del usuario

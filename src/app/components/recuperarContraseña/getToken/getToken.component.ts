@@ -21,17 +21,6 @@ export class GetTokenComponent implements OnInit{
 
   ngOnInit() { }
 
-  login() {
-      this.authService.login(this.username, this.password).subscribe((response) => {
-          if (response.success) {
-              this.router.navigate([this.authService.getRedirectUrl()]);
-              this.toastr.success('Inicio de sesión correcto', 'Bienvenid@');
-          } else {
-               this.toastr.error('Datos incorrectos', 'Error');
-              console.log('Error de inicio de sesión');
-          }
-      });
-  }
 
   recuperarContrasena(){
     this.apiService.recuperarContrasena(this.username).subscribe((response) => {

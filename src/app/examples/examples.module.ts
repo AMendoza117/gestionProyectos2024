@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GetTokenComponent } from 'app/components/recuperarContraseña/getToken/getToken.component';
 import { ActualizarContraseñaComponent } from 'app/components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
+import { Login2FAComponent } from './login2FA/login2FA.component';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { ActualizarContraseñaComponent } from 'app/components/recuperarContrase
         LandingComponent,
         SignupComponent,
         GetTokenComponent,
-        ActualizarContraseñaComponent
+        ActualizarContraseñaComponent,
+        Login2FAComponent
     ],
     // Provee los servicios necesarios
     providers: [

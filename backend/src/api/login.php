@@ -1,4 +1,15 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require_once ("./../lib/PHPMailer/src/PHPMailer.php");
+require_once ("./../lib/PHPMailer/src/Exception.php");
+require_once ("./../lib/PHPMailer/src/SMTP.php");
+
+//require_once './authService.php';
+require_once 'middlewares/allowCors.php';
+
 // Incluir el archivo de conexión a la base de datos
 include 'database.php';
 
@@ -23,14 +34,9 @@ if ($consulta->num_rows > 0) {
     $hashedPassword = hash('sha256', $contrasena);
 
     if ($hashedPassword == $password) {
-        // Las credenciales son válidas, el usuario ha iniciado sesión con éxito
+        // Aqui va a ejecutar una funcion para que se envie un correo electronico, despues lo que se genera aqui abajo se pasara a otro php
         // Generar un token único para el usuario
-        $token = bin2hex(random_bytes(32));
-        $response = [
-            'success' => true,
-            'role' => $role,
-            'token' => $token
-        ];
+        sendEmail($username, $token);
     } else {
         // La contraseña no coincide
         $response = [
@@ -46,8 +52,68 @@ if ($consulta->num_rows > 0) {
     ];
 }
 
-// Devolver la respuesta en formato JSON
-header('Content-Type: application/json');
-echo json_encode($response);
+function sendEmail($to, $token)
+{
+  try {
+    $subject = "Token para inicio de sesión";
 
+    // Cargar el contenido HTML de tu plantilla de correo electrónico
+$html_message = file_get_contents("./../assets/template/dobleFactorEmail.html");
+
+// Reemplazar placeholders en la plantilla con datos dinámicos
+$html_message = str_replace("[token]", $token, $html_message);
+
+    $remitente = 'arturolopez1997vecino@gmail.com';
+    $nremitente = 'GestionProyectos';
+
+    // Create an instance of PHPMailer.
+    $mail = new PHPMailer(true); // Eliminación del @ antes de new
+
+    // Configure the email sending parameters.
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = 587;
+    $mail->SMTPAuth = true;
+    $mail->Username = 'arturolopez1997vecino@gmail.com';
+    $mail->Password = 'jcivdngndtyspzrz';
+    $mail->SMTPSecure = 'tls';
+    $mail->isHTML(true);
+    $mail->CharSet = 'UTF-8';
+
+    //$verificationLinkWithToken = 'http://localhost:4200/' . "?token=" . $token;
+    // Nuevas configuraciones para CORS
+    $mail->SMTPKeepAlive = true;
+    $mail->Timeout = 30;
+    $mail->SMTPOptions = [
+      'ssl' => [
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true,
+      ],
+    ];
+
+    // Configuración del correo
+    $mail->setFrom($remitente, $nremitente);
+    $mail->addReplyTo($remitente, $nremitente);
+    $mail->addAddress($to);
+    $mail->isHTML(true);
+
+    $mail->Subject = $subject;
+
+$mail->Body = $html_message;
+
+// Attempt to send the email and handle errors.
+if ($mail->send()) {
+  echo json_encode(['success' => true ]);
+} else {
+  http_response_code(500);
+  echo json_encode(array("error" => "Error al enviar el correo electrónico. $to"));
+}
+// Código para enviar el correo electrónico con PHPMailer
+} catch (Exception $e) {
+echo "Error al enviar el correo: {$mail->ErrorInfo}";
+}
+}
 $con->close();
+
+

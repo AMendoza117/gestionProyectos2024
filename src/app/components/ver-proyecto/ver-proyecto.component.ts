@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VerProyecto } from 'app/Models/VerProyecto.model';
 import { Stakeholder } from 'app/Models/Stakeholder.model';
 import { PagosParciales } from 'app/Models/PagosParciales.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-ver-proyecto',
@@ -33,7 +34,7 @@ export class VerProyectoComponent implements OnInit {
     idProyecto: null
   };
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { 
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private toastr: ToastrService) { 
     
   }
 
@@ -47,13 +48,22 @@ export class VerProyectoComponent implements OnInit {
   }
 
   agregarPagoParcial() {
+    if (!this.nuevoPagoParcial.fechaPago || !this.nuevoPagoParcial.monto) {
+      this.toastr.error('Por favor completa todos los campos', 'Error');
+      return; // Detener la ejecución si algún campo está vacío
+    }
     const idProyecto = this.idProyecto;
     this.apiService.registrarPagosParciales(idProyecto, this.nuevoPagoParcial).subscribe(
       (response) => {
         if (response && response.success) {
           this.loadProyecto(this.idProyecto);
+          this.nuevoPagoParcial.fechaPago = '';
+          this.nuevoPagoParcial.monto = 0;
+          this.toastr.success('Pago agregado correctamente', 'Exito');
         } else {
           console.error('Error al agregar pago.');
+          
+          this.toastr.error('Error al agregar pago', 'Error');
         }
       },
       (error) => {
@@ -63,6 +73,10 @@ export class VerProyectoComponent implements OnInit {
   }
 
   agregarStakeholder() {
+    if (!this.nuevoStakeholder.nombreCompleto|| !this.nuevoStakeholder.correoElectronico) {
+      this.toastr.error('Por favor completa todos los campos', 'Error');
+      return; // Detener la ejecución si algún campo está vacío
+    }
     // Obtener el ID del proyecto desde la ruta
     const idProyecto = this.idProyecto;
     // Agregar el nuevo stakeholder al proyecto
@@ -70,24 +84,33 @@ export class VerProyectoComponent implements OnInit {
       (response) => {
         if (response && response.success) {
           // Enviar el correo electrónico después de agregar el stakeholder
+          this.toastr.success('Stakeholder agregado correctamente', 'Exito');
           this.apiService.enviarCorreo(this.nuevoStakeholder).subscribe(
             (correoResponse) => {
               if (correoResponse && correoResponse.success) {
+                this.toastr.success('Correo electronico enviado', 'Exito');
                 console.log('Correo electrónico enviado con éxito.');
               } else {
+                this.toastr.error('No se pudo enviar el correo electronico', 'Error');
                 console.error('Error al enviar el correo electrónico.');
               }
             },
             (correoError) => {
+              this.toastr.error('Error en la solicitud para enviar al correo electrónico', 'Error');
               console.error('Error en la solicitud para enviar el correo electrónico: ', correoError);
             }
           );
           this.loadProyecto(this.idProyecto);
+          this.nuevoStakeholder.nombreCompleto = '';
+          this.nuevoStakeholder.correoElectronico = '';
+          this.nuevoStakeholder.telefono = '';
         } else {
+          this.toastr.error('Error al agregar stakeholder', 'Error');
           console.error('Error al agregar stakeholder.');
         }
       },
       (error) => {
+        this.toastr.error('Error en la solicitud para agregar stakeholder', 'Error');
         console.error('Error en la solicitud para agregar stakeholder: ', error);
       }
     );

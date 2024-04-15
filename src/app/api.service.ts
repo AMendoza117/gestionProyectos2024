@@ -161,6 +161,15 @@ export class ApiService {
     return this.http.post(url, credentials, { headers });
   }
 
+  login2(token: string): Observable<any> {
+    const credentials = { token };
+
+    const url = `${this.apiUrl}/api/login2Fa.php`; 
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, credentials, { headers });
+  }
+
   recuperarContrasena(username: string): Observable<any> {
     const credentials = { username };
 

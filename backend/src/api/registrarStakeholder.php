@@ -1,5 +1,4 @@
 <?php
-
 // Incluir el archivo de conexión a la base de datos
 include 'database.php';
 
@@ -11,6 +10,21 @@ $idProyecto = $request->idProyecto;
 $nombreCompleto = $request->nombreCompleto;
 $correoElectronico = $request->correoElectronico;
 $telefono = $request->telefono;
+
+// Consulta para verificar si el correo electrónico ya existe
+$consulta_verificacion = "SELECT COUNT(*) AS total FROM Stakeholders WHERE correoElectronico = ? AND idProyecto = $idProyecto";
+$stmt_verificacion = mysqli_prepare($con, $consulta_verificacion);
+mysqli_stmt_bind_param($stmt_verificacion, "s", $correoElectronico);
+mysqli_stmt_execute($stmt_verificacion);
+mysqli_stmt_bind_result($stmt_verificacion, $total);
+mysqli_stmt_fetch($stmt_verificacion);
+mysqli_stmt_close($stmt_verificacion);
+
+// Si el correo electrónico ya existe, no lo agregamos nuevamente
+if ($total > 0) {
+    echo json_encode(['success' => false, 'error' => 'El correo electrónico ya existe en la base de datos']);
+    exit; // Terminamos la ejecución del script
+}
 
 // Sentencia preparada para prevenir inyecciones SQL
 $consulta = "INSERT INTO Stakeholders (nombreCompleto, correoElectronico, telefono, idProyecto)
@@ -33,4 +47,3 @@ if (mysqli_stmt_execute($stmt)) {
 mysqli_stmt_close($stmt);
 mysqli_close($con);
 
-?>

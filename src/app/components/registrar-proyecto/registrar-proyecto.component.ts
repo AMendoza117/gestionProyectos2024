@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ApiService } from './../../api.service';
 import { Responsable } from 'app/Models/responsable.model';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-registrar-proyecto',
   templateUrl: './registrar-proyecto.component.html',
@@ -15,7 +17,7 @@ export class RegistrarProyectoComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required]),
   });
 
-  constructor(private apiService: ApiService, private fb: FormBuilder) { }
+  constructor(private apiService: ApiService, private fb: FormBuilder, private toastr: ToastrService, private router: Router) { }
 
   ngOnInit() {
     this.proyectoForm = this.fb.group({
@@ -86,6 +88,8 @@ export class RegistrarProyectoComponent implements OnInit {
 
       this.apiService.registrarProyecto(proyectoData).subscribe(
         (response) => {
+          this.toastr.success('Proyecto registrado correctamente', 'Exito');  
+            this.router.navigate(['/dashboard']);
 /*          if (response && response.success) {
 
             // Luego de registrar el proyecto, registrar el documento si hay uno adjunto
@@ -114,6 +118,8 @@ export class RegistrarProyectoComponent implements OnInit {
           }*/
         },
         (error) => {
+          
+          this.toastr.error('Error en la solicitud para registrar proyecto', 'Error');
           console.error('Error en la solicitud para registrar proyecto: ', error);
         }
       );
@@ -132,14 +138,20 @@ export class RegistrarProyectoComponent implements OnInit {
       this.apiService.registrarProyecto(proyectoData).subscribe(
         (response) => {
           if (response && response.success) {
-            this.proyectoForm.reset();  
+            this.proyectoForm.reset();
+            this.toastr.success('Proyecto registrado correctamente', 'Exito');  
             window.location.reload();
+            this.router.navigate(['/dashboard']);
           } else {
             console.error('Error al registrar proyecto.');
+            
+            this.toastr.error('Error al registrar proyecto', 'Error');
           }
         },
         (error) => {
           console.error('Error en la solicitud para registrar proyecto: ', error);
+          
+          this.toastr.error('Error en la solicitud para registrar proyecto', 'Error');
         }
       );
     }

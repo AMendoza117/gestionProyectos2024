@@ -23,8 +23,15 @@ if (mysqli_num_rows($resultado1) == 1) {
     // Actualizar el campo password en la tabla de usuarios
     $consulta2 = "UPDATE usuarios SET password = '$hashed_password' WHERE token = '$token'";
     if (mysqli_query($con, $consulta2)) {
-        echo json_encode(['success' => true]);
-        $consulta3 = "UPDATE usuarios SET token = '' WHERE token = '$token'";
+        // Generar un nuevo token (o eliminar el token)
+        $newToken = bin2hex(random_bytes(8));
+        // Actualizar el campo token en la tabla de usuarios
+        $consulta3 = "UPDATE usuarios SET token = '$newToken' WHERE token = '$token'";
+        if (mysqli_query($con, $consulta3)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => mysqli_error($con)]);
+        }
     } else {
         echo json_encode(['success' => false, 'error' => mysqli_error($con)]);
     }
