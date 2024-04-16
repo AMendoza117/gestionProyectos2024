@@ -8,12 +8,13 @@ import { Lider } from './Models/Lider.model';
 import { VerProyecto } from './Models/VerProyecto.model';
 import { Stakeholder } from './Models/Stakeholder.model';
 import { PagosParciales } from './Models/PagosParciales.model';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = environment.baseUrl;;
 
   constructor(private http: HttpClient, private httpClient: HttpClient) { }
 

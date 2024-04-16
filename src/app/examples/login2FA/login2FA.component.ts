@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-login2FA',
     templateUrl: './login2FA.component.html',
-    styleUrls: ['./login2FA.component.scss']
+    //styleUrls: ['./login2FA.component.scss']
 })
 export class Login2FAComponent implements OnInit {
     test: Date = new Date();
