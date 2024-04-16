@@ -14,6 +14,7 @@ import { AuthGuardService } from './services/auth.guard.service';
 import { GetTokenComponent } from './components/recuperarContraseña/getToken/getToken.component';
 import { ActualizarContraseñaComponent } from './components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 import { Login2FAComponent } from './examples/login2FA/login2FA.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'landing', component: LandingComponent },
   { path: 'nucleoicons', component: NucleoiconsComponent },
+  { path: 'ver-proyectop', component: NotificationComponent},
 
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
   { path: 'registrar-proyecto', component: RegistrarProyectoComponent, canActivate: [AuthGuardService]},

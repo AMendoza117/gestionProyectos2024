@@ -32,7 +32,8 @@ import { NgbdModalContent } from './modal/modal.component';
         NucleoiconsComponent,
         NotificationComponent,
         NgbdModalComponent,
-        NgbdModalContent
+        NgbdModalContent,
+        NavigationComponent
     ],
     entryComponents: [NgbdModalContent],
     exports:[ ComponentsComponent ]

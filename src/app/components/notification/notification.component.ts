@@ -1,48 +1,71 @@
 import { Input, Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-notification',
     templateUrl: './notification.component.html',
-    styleUrls: ['./notification.component.scss']
+    styleUrls: ['./notification.component.css']
 })
 
 export class NotificationComponent {
-    @Input()
-    public alerts: Array<IAlert> = [];
-    private backup: Array<IAlert>;
+    verProyecto: any; // Cambia el tipo según la estructura de tus datos de demostración
+  idProyecto: number;
+  
+  constructor(private toastr: ToastrService) { 
+    
+  }
 
-    constructor() {
-        this.alerts.push({
-            id: 1,
-            type: 'success',
-            message: 'This is an success alert',
-        }, {
-            id: 2,
-            type: 'info',
-            message: 'This is an info alert',
-        }, {
-            id: 3,
-            type: 'warning',
-            message: 'This is a warning alert',
-            icon: 'nc-bell-55'
-        }, {
-            id: 4,
-            type: 'danger',
-            message: 'This is a danger alert',
-            icon: 'nc-bell-55'
-        });
-        this.backup = this.alerts.map((alert: IAlert) => Object.assign({}, alert));
-    }
+  ngOnInit(): void {
+    // Simula la carga de datos de demostración
+    this.verProyecto = {
+      nombreProyecto: "Proyecto de demostración",
+      folio: "PRO-001",
+      descripcion: "Descripción del proyecto de demostración.",
+      fechaInicio: "2024-01-01",
+      fechaTermino: "2024-12-31",
+      estadoProyecto: "En curso",
+      costo: 100000,
+      nombreLiderProyecto: "Líder de Proyecto de Demostración",
+      pdfs: ["pdf1.pdf", "pdf2.pdf"], // Nombres de archivos PDF de demostración
+      stakeholders: [ // Datos de stakeholders de demostración
+        {
+          nombreCompleto: "Stakeholder 1",
+          correoElectronico: "stakeholder1@example.com",
+          telefono: "123456789"
+        },
+        {
+          nombreCompleto: "Stakeholder 2",
+          correoElectronico: "stakeholder2@example.com",
+          telefono: "987654321"
+        }
+      ],
+      pagosParciales: [ // Datos de pagos parciales de demostración
+        {
+          monto: 5000,
+          fechaPago: "2024-03-15"
+        },
+        {
+          monto: 7000,
+          fechaPago: "2024-06-30"
+        }
+      ]
+    };
+  }
 
-    public closeAlert(alert: IAlert) {
-        const index: number = this.alerts.indexOf(alert);
-        this.alerts.splice(index, 1);
-    }
-}
+  terminado(idProyecto: number): void {
+    // Simula la acción de marcar el proyecto como terminado
+    this.toastr.success('El proyecto se ha marcado como terminado.', 'Exito');
+  }
 
-export interface IAlert {
-    id: number;
-    type: string;
-    message: string;
-    icon?: string;
+  getPDFUrl(pdf: string): string {
+    // Construye la URL completa al archivo PDF (simulación)
+    return `http://localhost:8080/pdf/${pdf}`;
+  }
+
+  extractFileName(pdf: string): string {
+    // Extrae el nombre del archivo de la ruta completa (simulación)
+    const parts = pdf.split('/');
+    return parts[parts.length - 1];
+  }
+
 }

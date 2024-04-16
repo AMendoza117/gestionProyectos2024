@@ -1,14 +1,115 @@
-<p *ngFor="let alert of alerts">
-    <ngb-alert [type]="alert.type"  [dismissible]="false">
-        <div class="container">
-            <ng-container *ngIf="alert.icon">
-                <i class="nc-icon {{alert.icon}}"></i>
-            </ng-container>
-
-            {{ alert.message }}
-            <button type="button" name="button" class="close" (click)="closeAlert(alert)">
-                <i class="nc-icon nc-simple-remove"></i>
-            </button>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/Dashboard">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/ver-proyecto">Descripción proyecto</a></li>
+    </ol>
+  </nav>
+  
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3>Detalles del Proyecto</h3>
+            </div>
+            <div class="card-body">
+              <div *ngIf="verProyecto">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Atributo</th>
+                      <th>Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Nombre del Proyecto</td>
+                      <td>{{ verProyecto.nombreProyecto }}</td>
+                    </tr>
+                    <!-- Agrega aquí los otros atributos que desees mostrar -->
+                  </tbody>
+                </table>
+                <button class="btn" style="background-color: #117c5d; border: none;" (click)="terminado(idProyecto)">Marcar como terminado</button>
+              </div>
+            </div>
+          </div>
         </div>
-    </ngb-alert>
-</p>
+      </div>
+  
+      <!-- Sección de PDFs -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3>PDFs</h3>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li *ngFor="let pdf of verProyecto.pdfs">
+                  <a href="{{ getPDFUrl(pdf) }}" target="_blank">{{ extractFileName(pdf) }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Sección de Stakeholders -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3>Stakeholders</h3>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Nombre Completo</th>
+                    <th>Correo Electrónico</th>
+                    <th>Teléfono</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let stakeholder of verProyecto.stakeholders">
+                    <td>{{ stakeholder.nombreCompleto }}</td>
+                    <td>{{ stakeholder.correoElectronico }}</td>
+                    <td>{{ stakeholder.telefono }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Sección de Pagos parciales -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3>Pagos parciales</h3>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Monto</th>
+                    <th>Fecha de pago</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let pagoParcial of verProyecto.pagosParciales">
+                    <td>{{ pagoParcial.monto }}</td>
+                    <td>{{ pagoParcial.fechaPago }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

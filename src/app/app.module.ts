@@ -22,6 +22,7 @@ import { Error403Component } from './components/pantallaDeError/error403/error40
 import { HttpClientModule } from '@angular/common/http';
 import { ActualizarContraseñaComponent } from './components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 import { GetTokenComponent } from './components/recuperarContraseña/getToken/getToken.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
