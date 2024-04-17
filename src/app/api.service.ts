@@ -53,6 +53,14 @@ export class ApiService {
     return this.http.post(url, proyecto, { headers });
   }
 
+  // Registrar Actividad
+  registrarActividad(actividad: any): Observable<any> {
+    const url = `${this.apiUrl}/api/registrarActividad.php`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, actividad, { headers });
+  }
+
   //registrarDocumentos
   registrarDocumento(folio: string, documento: File): Observable<any> {
     const url = `${this.apiUrl}/api/registrarDocumento.php`;
@@ -73,6 +81,13 @@ export class ApiService {
 
   getProyectoDetallado(idProyecto: number): Observable<VerProyecto> {
     const url = `${this.apiUrl}/api/loadProyectoById.php?idProyecto=${idProyecto}`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.get<VerProyecto>(url, { headers });
+  }
+
+  getActividadDetallada(idActividad: number): Observable<VerProyecto> {
+    const url = `${this.apiUrl}/api/loadActividadById.php?idActividad=${idActividad}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.get<VerProyecto>(url, { headers });

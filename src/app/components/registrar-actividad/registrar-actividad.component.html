@@ -1,0 +1,78 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="dashboard">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="/registrar-proyecto">Registrar Actividad</a></li>
+  </ol>
+</nav>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 style="align-items: center;">Registro de Actividades</h3>
+
+          </div>
+
+          <div class="container">
+
+            <form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
+              <!-- Nombre del Proyecto -->
+              <div class="form-group">
+                <label for="nombreActividad">Nombre de la actividad:</label>
+                <input type="text" id="nombreActividad" formControlName="nombreActividad" class="form-control" required>
+              </div>
+
+              <!-- Nombre Corto del Proyecto -->
+              <div class="form-group">
+                <label for="nombreCorto">Nombre Corto (≤ 10 caracteres):</label>
+                <input type="text" id="nombreCorto" formControlName="nombreCorto" class="form-control" required maxlength="10">
+              </div>
+
+              <!-- Descripción General del Proyecto -->
+              <div class="form-group">
+                <label for="descripcion">Descripción General:</label>
+                <textarea id="descripcion" formControlName="descripcion" class="form-control" required></textarea>
+              </div>
+
+              <!-- Fecha de Inicio y Término del Proyecto -->
+              <div class="form-group">
+                <label for="fechaInicio">Fecha de Inicio:</label>
+                <input type="date" id="fechaInicio" formControlName="fechaInicio" class="form-control" required>
+
+                <label for="fechaTermino">Fecha de Término:</label>
+                <input type="date" id="fechaTermino" formControlName="fechaTermino" class="form-control" required>
+              </div>
+
+              <!-- Responsable del Proyecto -->
+              <div class="form-group">
+                <label for="idResponsable">Responsable de la Actividad:</label>
+                <select id="idResponsable" formControlName="idResponsable" class="form-control" required>
+                  <option *ngFor="let responsable of responsables" [ngValue]="responsable.idLiderProyecto">
+                    {{ responsable.nombre }}
+                  </option>
+                </select>
+              </div>
+
+
+              <!-- Adjuntar Documentos (solo PDF) -->
+              <div class="form-group" style="margin: 20px;">
+                <label for="file">Adjuntar PDF:</label>
+                <input type="file" id="file" formControlName="fileSource" (change)="onFileChange($event)" />
+                <div *ngIf="documentoForm.get('fileSource').hasError('required') && documentoForm.get('fileSource').touched"
+                  class="text-danger">
+                  *Sólo puede subir un archivo, si desea añadir más archivos lo podrá hacer más adelante
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Registrar Actividad</button>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

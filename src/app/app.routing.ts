@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -15,6 +15,11 @@ import { GetTokenComponent } from './components/recuperarContraseña/getToken/ge
 import { ActualizarContraseñaComponent } from './components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 import { Login2FAComponent } from './examples/login2FA/login2FA.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { RegistrarActividadComponent } from './components/registrar-actividad/registrar-actividad.component';
+import { VerActividadComponent } from './components/ver-actividad/ver-actividad.component';
+import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
+import { ActividadesComponent } from './components/actividades/actividades.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -29,7 +34,12 @@ const routes: Routes = [
   { path: 'ver-proyecto/:id', component: VerProyectoComponent, canActivate: [AuthGuardService]},
   { path: 'recuperar-contrasena', component: GetTokenComponent},
   { path: 'actualizar-contrasena', component: ActualizarContraseñaComponent},
-  { path: 'login2FA', component: Login2FAComponent}
+  { path: 'login2FA', component: Login2FAComponent},
+  { path: 'registrar-actividad', component: RegistrarActividadComponent},
+  { path: 'ver-actividad', component: VerActividadComponent},
+  { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
+  { path: 'actividades', component: ActividadesComponent},
+  { path: 'proyectos', component: ProyectosComponent}
 ];
 
 @NgModule({

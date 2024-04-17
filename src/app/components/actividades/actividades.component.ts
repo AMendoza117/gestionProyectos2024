@@ -8,11 +8,12 @@ import { ApiService } from 'app/api.service';
 
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-actividades',
+  templateUrl: './actividades.component.html',
+  styleUrls: ['./actividades.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class ActividadesComponent
+ implements OnInit {
   proyectos: Proyecto[];
   lideresConProyectos: LiderConProyectos[];
   numProyectos: number;

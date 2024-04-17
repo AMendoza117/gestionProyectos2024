@@ -1,0 +1,23 @@
+.main-content {
+    padding: 20px;
+  }
+
+  .main-content .card {
+    margin-bottom: 20px;
+  }
+
+  .main-content .card-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .main-content .card-header h3 {
+    margin: 0;
+  }
+
+  .main-content .card-body {
+    padding: 20px;
+  }
+

@@ -10,6 +10,15 @@
         </div>
         <div class="navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item" *ngIf="!isHome2()">
+                    <a routerLink='/dashboard' class="nav-link">Inicio</a>
+                </li>
+                <li class="nav-item" *ngIf="!isHome2()">
+                    <a routerLink='/actividades' class="nav-link">Actividades</a>
+                </li>
+                <li class="nav-item" *ngIf="!isHome2()">
+                    <a routerLink='/proyectos' class="nav-link">Proyectos</a>
+                </li>
                 <li class="nav-item" *ngIf="isHome()">
                     <a routerLink='/signup' class="btn btn-danger btn-round">Iniciar sesión</a>
                 </li>
