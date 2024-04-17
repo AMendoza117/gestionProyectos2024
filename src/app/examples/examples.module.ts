@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GetTokenComponent } from 'app/components/recuperarContraseña/getToken/getToken.component';
 import { ActualizarContraseñaComponent } from 'app/components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 import { Login2FAComponent } from './login2FA/login2FA.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { Login2FAComponent } from './login2FA/login2FA.component';
         ReactiveFormsModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        ToastrModule.forRoot()
+        ToastrModule.forRoot(),
+        RecaptchaModule
     ],
     declarations: [
         LandingComponent,

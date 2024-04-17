@@ -15,22 +15,36 @@ export class SignupComponent implements OnInit {
     focus;
     focus1;
 
+    captchaResolved: boolean = false;
+    captcha: string;  
     username: string = '';
     password: string = '';
-    constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastr: ToastrService, private apiService: ApiService) { }
+    constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastr: ToastrService, private apiService: ApiService) { 
+        this.captcha = '';
+    }
 
     ngOnInit() { }
 
     login() {
-        this.apiService.login(this.username, this.password).subscribe((response) => {
-            if (response.success) {
-                this.toastr.info('Token enviado al correo electronico', 'Exito');
-                this.router.navigate(['/login2FA']);
-            } else {
-                this.toastr.error('Datos incorrectos', 'Error');
-                console.log('Error de inicio de sesión');
-            }
-        });
+        if (this.captchaResolved) {
+            this.apiService.login(this.username, this.password).subscribe((response) => {
+                if (response.success) {
+                    this.toastr.info('Token enviado al correo electrónico', 'Éxito');
+                    this.router.navigate(['/login2FA']);
+                } else {
+                    this.toastr.error('Datos incorrectos', 'Error');
+                    console.log('Error de inicio de sesión');
+                }
+            });
+        } else {
+            this.toastr.error('Por favor, complete el captcha', 'Error');
+        }
+    }
+
+    resolved(captchaResponse: string) {
+        this.captcha = captchaResponse;
+        this.captchaResolved = true;
+        console.log('resolved captcha with response: ' + this.captcha);
     }
 
     rc() {

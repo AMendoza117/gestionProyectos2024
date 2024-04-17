@@ -34,6 +34,12 @@
                                     [(ngModel)]="password" name="password" (focus)="focus1 = true"
                                     (blur)="focus1 = false">
                             </div>
+
+                            <div>
+                                <p>Hello potential human...</p>
+                                <re-captcha (resolved)="resolved($event)" siteKey="6Lc_n70pAAAAANztKHw8pGjle1x_k5ClBInob3pW"></re-captcha>
+                            </div>                            
+
                             <button type="submit" class="btn btn-danger btn-block btn-round">Iniciar sesión</button>
                         </form>
 

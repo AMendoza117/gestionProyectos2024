@@ -1,11 +1,12 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-require_once ("./../lib/PHPMailer/src/PHPMailer.php");
-require_once ("./../lib/PHPMailer/src/Exception.php");
-require_once ("./../lib/PHPMailer/src/SMTP.php");
+require_once("./../lib/PHPMailer/src/PHPMailer.php");
+require_once("./../lib/PHPMailer/src/Exception.php");
+require_once("./../lib/PHPMailer/src/SMTP.php");
 
 //require_once './authService.php';
 require_once 'middlewares/allowCors.php';
@@ -27,29 +28,23 @@ $consulta->execute();
 $consulta->store_result();
 
 if ($consulta->num_rows > 0) {
-    $consulta->bind_result($id, $username, $password, $nombre, $apellidos, $role, $token);
-    $consulta->fetch();
+  $consulta->bind_result($id, $username, $password, $nombre, $apellidos, $role, $token);
+  $consulta->fetch();
 
-    // Hash SHA-256 de la contraseña proporcionada en la solicitud
-    $hashedPassword = hash('sha256', $contrasena);
+  // Hash SHA-256 de la contraseña proporcionada en la solicitud
+  $hashedPassword = hash('sha256', $contrasena);
 
-    if ($hashedPassword == $password) {
-        // Aqui va a ejecutar una funcion para que se envie un correo electronico, despues lo que se genera aqui abajo se pasara a otro php
-        // Generar un token único para el usuario
-        sendEmail($username, $token);
-    } else {
-        // La contraseña no coincide
-        $response = [
-            'success' => false,
-            'error' => 'Contraseña incorrecta',
-        ];
-    }
+  if ($hashedPassword == $password) {
+    // Aqui va a ejecutar una funcion para que se envie un correo electronico, despues lo que se genera aqui abajo se pasara a otro php
+    // Generar un token único para el usuario
+    sendEmail($username, $token);
+  } else {
+    // La contraseña no coincide
+    echo json_encode(['success' => false]);
+  }
 } else {
-    // Las credenciales no son válidas, el inicio de sesión ha fallado
-    $response = [
-        'success' => false,
-        'error' => 'Usuario no encontrado',
-    ];
+  // Las credenciales no son válidas, el inicio de sesión ha fallado
+  echo json_encode(['success' => false]);
 }
 
 function sendEmail($to, $token)
@@ -58,10 +53,10 @@ function sendEmail($to, $token)
     $subject = "Token para inicio de sesión";
 
     // Cargar el contenido HTML de tu plantilla de correo electrónico
-$html_message = file_get_contents("./../assets/template/dobleFactorEmail.html");
+    $html_message = file_get_contents("./../assets/template/dobleFactorEmail.html");
 
-// Reemplazar placeholders en la plantilla con datos dinámicos
-$html_message = str_replace("[token]", $token, $html_message);
+    // Reemplazar placeholders en la plantilla con datos dinámicos
+    $html_message = str_replace("[token]", $token, $html_message);
 
     $remitente = 'arturolopez1997vecino@gmail.com';
     $nremitente = 'GestionProyectos';
@@ -100,20 +95,18 @@ $html_message = str_replace("[token]", $token, $html_message);
 
     $mail->Subject = $subject;
 
-$mail->Body = $html_message;
+    $mail->Body = $html_message;
 
-// Attempt to send the email and handle errors.
-if ($mail->send()) {
-  echo json_encode(['success' => true ]);
-} else {
-  http_response_code(500);
-  echo json_encode(array("error" => "Error al enviar el correo electrónico. $to"));
-}
-// Código para enviar el correo electrónico con PHPMailer
-} catch (Exception $e) {
-echo "Error al enviar el correo: {$mail->ErrorInfo}";
-}
+    // Attempt to send the email and handle errors.
+    if ($mail->send()) {
+      echo json_encode(['success' => true]);
+    } else {
+      http_response_code(500);
+      echo json_encode(array("error" => "Error al enviar el correo electrónico. $to"));
+    }
+    // Código para enviar el correo electrónico con PHPMailer
+  } catch (Exception $e) {
+    echo "Error al enviar el correo: {$mail->ErrorInfo}";
+  }
 }
 $con->close();
-
-
