@@ -1,10 +1,10 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="dashboard">Inicio</a></li>
-    <li class="breadcrumb-item"><a routerLink="/registrar-proyecto">Registrar Actividad</a></li>
+    <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="/registrar-actividad">Registrar Actividad</a></li>
   </ol>
 </nav>
-<div class="main-content">
+<div class="main-content" *ngIf="mostrarTabla">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -16,7 +16,7 @@
 
           <div class="container">
 
-            <form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="actividadForm" (ngSubmit)="onSubmit()">
               <!-- Nombre del Proyecto -->
               <div class="form-group">
                 <label for="nombreActividad">Nombre de la actividad:</label>
@@ -54,18 +54,7 @@
                 </select>
               </div>
 
-
-              <!-- Adjuntar Documentos (solo PDF) -->
-              <div class="form-group" style="margin: 20px;">
-                <label for="file">Adjuntar PDF:</label>
-                <input type="file" id="file" formControlName="fileSource" (change)="onFileChange($event)" />
-                <div *ngIf="documentoForm.get('fileSource').hasError('required') && documentoForm.get('fileSource').touched"
-                  class="text-danger">
-                  *Sólo puede subir un archivo, si desea añadir más archivos lo podrá hacer más adelante
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Registrar Actividad</button>
+              <button type="submit" class="btn" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Registrar Actividad</button>
             </form>
           </div>
 

@@ -1,3 +1,4 @@
+import { VerActividad } from './../../Models/VerActividad.model';
 // ver-proyecto.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +8,9 @@ import { VerProyecto } from 'app/Models/VerProyecto.model';
 import { Stakeholder } from 'app/Models/Stakeholder.model';
 import { PagosParciales } from 'app/Models/PagosParciales.model';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { Proyecto } from 'app/Models/Proyecto.model';
+import { Actividad } from 'app/Models/Actividad.model';
 
 @Component({
   selector: 'app-ver-proyecto',
@@ -14,8 +18,14 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./ver-proyecto.component.css']
 })
 export class VerProyectoComponent implements OnInit {
+  mostrarTabla = false;
+  actividades: Actividad[];
+  actividad: Actividad;
+  proyectos: Proyecto;
+  verActividad: VerActividad;
   verProyecto: VerProyecto;
   idProyecto: number;
+  idProyecto2: number;
   documentoForm = new FormGroup({
     fileSource: new FormControl('', [Validators.required]),
   });
@@ -34,11 +44,27 @@ export class VerProyectoComponent implements OnInit {
     idProyecto: null
   };
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService, private toastr: ToastrService) { 
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private toastr: ToastrService, private router: Router) { 
     
   }
 
   ngOnInit(): void {
+    const userRole = localStorage.getItem('userRole');
+
+    // Verifica el rol del usuario para determinar si se muestra la tabla
+    if (userRole === 'admin' || userRole === 'lider') {
+      this.mostrarTabla = true;
+    }
+    this.route.params.subscribe(params => {
+      this.idProyecto2 = +params['idProyecto'];
+      if (!isNaN(this.idProyecto2)) {
+        localStorage.setItem('idProyecto', this.idProyecto2.toString());
+        console.log('idProyecto guardado en localStorage:', this.idProyecto2);
+      } else {
+        console.log('El valor de idProyecto no es un número válido:', this.idProyecto2);
+      }
+    });
+    
     this.route.paramMap.subscribe((params) => {
       this.idProyecto = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
       if (!isNaN(this.idProyecto)) {
@@ -127,6 +153,17 @@ export class VerProyectoComponent implements OnInit {
     );
   }
 
+  loadActividades() {
+    this.apiService.getActividades().subscribe(
+      (actividades: Actividad[]) => {
+        this.actividades = actividades;
+      },
+      (error) => {
+        console.error('Error al cargar proyectos:', error);
+      }
+    );
+  }
+
   onFileChange(event) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -147,6 +184,7 @@ export class VerProyectoComponent implements OnInit {
       }
     );
   }
+
 /*
   agregarDocumento() {
     const folio = this.verProyecto.folio;
@@ -177,5 +215,10 @@ export class VerProyectoComponent implements OnInit {
     const parts = pdf.split('/');
     return parts[parts.length - 1];
   }
+
+  redirectToRegistrarActividad() {
+    this.router.navigate(['/registrar-actividad']);
+  }
+  
 
 }

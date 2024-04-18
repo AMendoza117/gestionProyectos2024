@@ -1,3 +1,4 @@
+import { VerActividad } from './../../Models/VerActividad.model';
 // ver-proyecto.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -13,7 +14,10 @@ import { PagosParciales } from 'app/Models/PagosParciales.model';
   styleUrls: ['./ver-actividad.component.css']
 })
 export class VerActividadComponent implements OnInit {
+  mostrarTabla = false;
+  verActividad: VerActividad;
   verProyecto: VerProyecto;
+  idActividad: number;
   idProyecto: number;
   documentoForm = new FormGroup({
     fileSource: new FormControl('', [Validators.required]),
@@ -26,82 +30,37 @@ export class VerActividadComponent implements OnInit {
     idProyecto: null
   };
 
-  nuevoPagoParcial: PagosParciales = {
-    idPagoParcial: null,
-    fechaPago: '',
-    monto: 0,
-    idProyecto: null
-  };
-
   constructor(private route: ActivatedRoute, private apiService: ApiService) { 
     
   }
 
   ngOnInit(): void {
+    const userRole = localStorage.getItem('userRole');
+
+    // Verifica el rol del usuario para determinar si se muestra la tabla
+    if (userRole === 'admin' || userRole === 'lider') {
+      this.mostrarTabla = true;
+    }
+
     this.route.paramMap.subscribe((params) => {
       this.idProyecto = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
       if (!isNaN(this.idProyecto)) {
-        this.loadProyecto(this.idProyecto);
+        this.loadActividad(this.idProyecto);
       }
     });
-  }
+  }    
 
-  agregarPagoParcial() {
-    const idProyecto = this.idProyecto;
-    this.apiService.registrarPagosParciales(idProyecto, this.nuevoPagoParcial).subscribe(
-      (response) => {
-        if (response && response.success) {
-          this.loadProyecto(this.idProyecto);
-        } else {
-          console.error('Error al agregar pago.');
-        }
+  loadActividad(idActividad: number) {
+    if(this.idProyecto === this.idProyecto){
+    this.apiService.getActividadDetallada(idActividad).subscribe(
+      (verActividad: VerActividad) => {
+        this.verActividad = verActividad;
       },
       (error) => {
-        console.error('Error en la solicitud para agregar pago: ', error);
-      }
-    )
-  }
-
-  agregarStakeholder() {
-    // Obtener el ID del proyecto desde la ruta
-    const idProyecto = this.idProyecto;
-    // Agregar el nuevo stakeholder al proyecto
-    this.apiService.agregarStakeholder(idProyecto, this.nuevoStakeholder).subscribe(
-      (response) => {
-        if (response && response.success) {
-          // Enviar el correo electrónico después de agregar el stakeholder
-          this.apiService.enviarCorreo(this.nuevoStakeholder).subscribe(
-            (correoResponse) => {
-              if (correoResponse && correoResponse.success) {
-                console.log('Correo electrónico enviado con éxito.');
-              } else {
-                console.error('Error al enviar el correo electrónico.');
-              }
-            },
-            (correoError) => {
-              console.error('Error en la solicitud para enviar el correo electrónico: ', correoError);
-            }
-          );
-          this.loadProyecto(this.idProyecto);
-        } else {
-          console.error('Error al agregar stakeholder.');
-        }
-      },
-      (error) => {
-        console.error('Error en la solicitud para agregar stakeholder: ', error);
+        console.error('Error al cargar Actividad:', error);
       }
     );
   }
-
-  loadProyecto(idProyecto: number) {
-    this.apiService.getProyectoDetallado(idProyecto).subscribe(
-      (verProyecto: VerProyecto) => {
-        this.verProyecto = verProyecto;
-      },
-      (error) => {
-        console.error('Error al cargar proyecto:', error);
-      }
-    );
   }
 
   onFileChange(event) {
@@ -113,13 +72,13 @@ export class VerActividadComponent implements OnInit {
     }
   }
 
-  terminado(idProyecto: number): void {
-    this.apiService.terminado(idProyecto).subscribe(
+  Acterminada(idActividad: number): void {
+    this.apiService.terminado(idActividad).subscribe(
       (response) => {
-        this.loadProyecto(this.idProyecto);
+        this.loadActividad(this.idActividad);
       },
       (error) => {
-        console.error('Error al actualizar el estado del proyecto', error);
+        console.error('Error al actualizar el estado de la actividad', error);
         // Puedes manejar el error aquí si es necesario
       }
     );

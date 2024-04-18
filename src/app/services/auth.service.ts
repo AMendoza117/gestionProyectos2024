@@ -84,6 +84,8 @@ export class AuthService {
   private authToken: string | null = null;
   private tokenExpiration: Date | null = null;
   private readonly tokenValidityDurationMinutes: number = 30; // Duración de validez del token en minutos
+  usuarioAutenticado: boolean = false;
+  rolesUsuario: string[] = [];
 
   constructor(private router: Router, private apiService: ApiService, private toastr: ToastrService) {}
 
@@ -215,4 +217,5 @@ export class AuthService {
     this.router.navigate(['/home']);
     this.toastr.success('Se cerró la sesión correctamente', 'Adiós');
   }
+
 }

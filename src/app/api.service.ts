@@ -9,6 +9,8 @@ import { VerProyecto } from './Models/VerProyecto.model';
 import { Stakeholder } from './Models/Stakeholder.model';
 import { PagosParciales } from './Models/PagosParciales.model';
 import { environment } from 'environments/environment';
+import { Actividad } from './Models/Actividad.model';
+import { VerActividad } from './Models/VerActividad.model';
 
 @Injectable({
   providedIn: 'root',
@@ -79,6 +81,13 @@ export class ApiService {
     return this.http.get<Proyecto[]>(url, { headers });
   }
 
+  getActividades(): Observable<Actividad[]> {
+    const url = `${this.apiUrl}/api/loadActividades.php`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.get<Actividad[]>(url, { headers });
+  }
+
   getProyectoDetallado(idProyecto: number): Observable<VerProyecto> {
     const url = `${this.apiUrl}/api/loadProyectoById.php?idProyecto=${idProyecto}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -86,11 +95,11 @@ export class ApiService {
     return this.http.get<VerProyecto>(url, { headers });
   }
 
-  getActividadDetallada(idActividad: number): Observable<VerProyecto> {
-    const url = `${this.apiUrl}/api/loadActividadById.php?idActividad=${idActividad}`;
+  getActividadDetallada(idActividad: number): Observable<VerActividad> {
+    const url = `${this.apiUrl}/api/loadById.php?idActividad=${idActividad}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.get<VerProyecto>(url, { headers });
+    return this.http.get<VerActividad>(url, { headers });
   }
 
   agregarStakeholder(idProyecto: number, stakeholder: Stakeholder): Observable<any> {
@@ -117,6 +126,11 @@ export class ApiService {
   terminado(idProyecto: number): Observable<any> {
     const url = `${this.apiUrl}/api/terminado.php`;
     return this.http.post(url, { idProyecto });
+  }
+
+  terminada(idActividad: number): Observable<any> {
+    const url = `${this.apiUrl}/api/terminada.php`;
+    return this.http.post(url, { idActividad });
   }
 
   enviarCorreo(stakeholder: Stakeholder): Observable<any> {

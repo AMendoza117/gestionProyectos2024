@@ -4,12 +4,15 @@ import { ApiService } from './../../api.service';
 import { Responsable } from 'app/Models/responsable.model';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AuthService } from 'app/services/auth.service';
+
 @Component({
   selector: 'app-registrar-proyecto',
   templateUrl: './registrar-proyecto.component.html',
   styleUrls: ['./registrar-proyecto.component.css']
 })
 export class RegistrarProyectoComponent implements OnInit {
+  mostrarTabla = false;
   lastConsecutivo: string;
   proyectoForm: FormGroup;
   responsables: Responsable[];
@@ -17,9 +20,15 @@ export class RegistrarProyectoComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required]),
   });
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private toastr: ToastrService, private router: Router) { }
+  constructor(private apiService: ApiService, private fb: FormBuilder, private toastr: ToastrService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    const userRole = localStorage.getItem('userRole');
+
+    // Verifica el rol del usuario para determinar si se muestra la tabla
+    if (userRole === 'admin' || userRole === 'lider') {
+      this.mostrarTabla = true;
+    }
     this.proyectoForm = this.fb.group({
       nombreProyecto: ['', [Validators.required]],
       nombreCorto: ['', [Validators.required, Validators.maxLength(10)]],
@@ -156,7 +165,5 @@ export class RegistrarProyectoComponent implements OnInit {
       );
     }
   }
-
-
 
 }

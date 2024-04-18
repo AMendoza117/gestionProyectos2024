@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb" class="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/dashboard">Inicio</a></li>
-        <li class="breadcrumb-item"><a routerLink="/"></a></li>
+        <li class="breadcrumb-item"><a routerLink='/dashboard' class="nav-link">Inicio</a></li>
+        <li class="breadcrumb-item"><a routerLink="/" class="nav-link"></a></li>
     </ol>
 </nav>
 
@@ -94,7 +94,7 @@
                                     </tbody>
                                 </table>
                                 <!-- Formulario para agregar lider -->
-                                <div>
+                                <div *ngIf="mostrarTabla">
                                     <h5>Agregar lider</h5>
                                     <form (ngSubmit)="agregarLider()">
                                         <label for="nombreCompleto" style="margin: 10px;">Nombre completo:</label>

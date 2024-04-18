@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/Dashboard">Inicio</a></li>
-    <li class="breadcrumb-item"><a routerLink="/ver-proyecto">Descripcion proyecto</a></li>
+    <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+    <li class="breadcrumb-item"><a routerLink="/ver-actividad">Descripcion proyecto</a></li>
   </ol>
 </nav>
 <!-- ver-proyecto.component.html -->
@@ -25,39 +25,35 @@
                                 <tbody>
                                     <tr>
                                         <td>Nombre de la Actividad</td>
-                                        <td>{{ verProyecto.nombreProyecto }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Folio</td>
-                                        <td>{{ verProyecto.folio }}</td>
+                                        <td>{{ verActividad.nombreActividad }}</td>
                                     </tr>
                                     <tr>
                                         <td>Descripción</td>
-                                        <td>{{ verProyecto.descripcion }}</td>
+                                        <td>{{ verActividad.descripcion }}</td>
                                     </tr>
                                     <tr>
                                         <td>Fecha de Inicio</td>
-                                        <td>{{ verProyecto.fechaInicio }}</td>
+                                        <td>{{ verActividad.fechaInicio }}</td>
                                     </tr>
                                     <tr>
                                         <td>Fecha de Término</td>
-                                        <td>{{ verProyecto.fechaTermino }}</td>
+                                        <td>{{ verActividad.fechaTermino }}</td>
                                     </tr>
                                     <tr>
                                         <td>Estado de ña Actividad</td>
-                                        <td>{{ verProyecto.estadoProyecto }}</td>
+                                        <td>{{ verActividad.estadoProyecto }}</td>
                                     </tr>
                                     <tr>
                                         <td>Encargado de la Actividad</td>
-                                        <td>{{ verProyecto.nombreLiderProyecto }}</td>
+                                        <td>{{ verActividad.nombreLiderProyecto }}</td>
                                     </tr>
                                     <tr>
                                         <td>Líder del Proyecto</td>
-                                        <td>{{ verProyecto.nombreLiderProyecto }}</td>
+                                        <td>{{ verActividad.nombreLiderProyecto }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn btn-primary" (click)="terminado(idProyecto)">Marcar como
+                            <button class="btn btn-primary" (click)="terminado(idActividad)">Marcar como
                                 terminada</button>
                         </div>
                     </div>
@@ -97,7 +93,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngif="mostrarTabla">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -120,30 +116,5 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <!-- Formulario para agregar Stakeholder -->
-                        <div>
-                            <h5>Agregar Stakeholder</h5>
-                            <form (ngSubmit)="agregarStakeholder()">
-                                <label for="nombreCompleto" style="margin: 10px;">Nombre Completo:</label>
-                                <input type="text" id="nombreCompleto" [(ngModel)]="nuevoStakeholder.nombreCompleto"
-                                    name="nombreCompleto" required>
-
-                                <label for="correoElectronico" style="margin: 10px;">Correo Electrónico:</label>
-                                <input type="email" id="correoElectronico"
-                                    [(ngModel)]="nuevoStakeholder.correoElectronico" name="correoElectronico" required>
-
-                                <label for="telefono" style="margin: 10px;">Teléfono:</label>
-                                <input type="tel" id="telefono" [(ngModel)]="nuevoStakeholder.telefono" name="telefono"
-                                    required>
-
-                                <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Agregar Stakeholder</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
         
 </div>

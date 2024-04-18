@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Proyecto } from 'app/Models/Proyecto.model';
 import { LiderConProyectos } from 'app/Models/liderConProyectos.model';
 import { Lider } from 'app/Models/Lider.model';
-
+import { AuthService } from 'app/services/auth.service';
 import { ApiService } from 'app/api.service';
 
 
@@ -14,6 +14,7 @@ import { ApiService } from 'app/api.service';
 })
 export class DashboardComponent implements OnInit {
   proyectos: Proyecto[];
+  mostrarTabla = false;
   lideresConProyectos: LiderConProyectos[];
   numProyectos: number;
   numProyectosActivos: number;
@@ -23,10 +24,17 @@ export class DashboardComponent implements OnInit {
     nombre: ''
   };
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(private apiService: ApiService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.update();
+
+    const userRole = localStorage.getItem('userRole');
+
+    // Verifica el rol del usuario para determinar si se muestra la tabla
+    if (userRole === 'admin' || userRole === 'lider') {
+      this.mostrarTabla = true;
+    }
   }
   
 

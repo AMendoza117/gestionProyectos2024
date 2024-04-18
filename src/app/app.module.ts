@@ -26,8 +26,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { RegistrarActividadComponent } from './components/registrar-actividad/registrar-actividad.component';
 import { VerActividadComponent } from './components/ver-actividad/ver-actividad.component';
 import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
-import { ActividadesComponent } from './components/actividades/actividades.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { MapaComponent } from './components/mapa/mapa.component';
 
 @NgModule({
   declarations: [
@@ -45,8 +45,8 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
     RegistrarActividadComponent,
     VerActividadComponent,
     RegistrarUsuarioComponent,
-    ActividadesComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    MapaComponent
 
   ],
   imports: [
