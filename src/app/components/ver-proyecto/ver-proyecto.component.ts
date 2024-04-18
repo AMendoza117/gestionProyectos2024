@@ -18,7 +18,6 @@ import { Actividad } from 'app/Models/Actividad.model';
   styleUrls: ['./ver-proyecto.component.css']
 })
 export class VerProyectoComponent implements OnInit {
-  mostrarTabla = false;
   actividades: Actividad[];
   actividad: Actividad;
   proyectos: Proyecto;
@@ -49,12 +48,6 @@ export class VerProyectoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const userRole = localStorage.getItem('userRole');
-
-    // Verifica el rol del usuario para determinar si se muestra la tabla
-    if (userRole === 'admin' || userRole === 'lider') {
-      this.mostrarTabla = true;
-    }
     this.route.params.subscribe(params => {
       this.idProyecto2 = +params['idProyecto'];
       if (!isNaN(this.idProyecto2)) {

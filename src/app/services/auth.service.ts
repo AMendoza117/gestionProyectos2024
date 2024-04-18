@@ -103,6 +103,7 @@ export class AuthService {
             localStorage.setItem('userRole', JSON.stringify(this.userRole)); // Guarda el rol en localStorage
             localStorage.setItem('authToken', this.authToken); // Guarda el token en localStorage
             localStorage.setItem('tokenExpiration', this.tokenExpiration.toISOString()); // Guarda la fecha de expiración en localStorage
+            localStorage.setItem('username', response.username); 
             this.startTokenExpirationTimer(); // Inicia el temporizador de caducidad del token
             this.router.navigate([this.getRedirectUrl()]);
           } else {
@@ -199,6 +200,14 @@ export class AuthService {
       this.startTokenExpirationTimer();
     }
   }
+
+  isAdmin(): boolean {
+    // Aquí implementa la lógica para determinar si el usuario es un administrador.
+    // Por ejemplo, podrías comprobar si el rol del usuario es 'admin' o si tiene
+    // algún otro atributo que indique que es un administrador.
+    const userRole = localStorage.getItem('userRole');
+    return userRole === 'admin';
+  }
   
 
   getRedirectUrl() {
@@ -214,7 +223,9 @@ export class AuthService {
     localStorage.removeItem('userRole');
     localStorage.removeItem('authToken');
     localStorage.removeItem('tokenExpiration');
-    this.router.navigate(['/home']);
+    localStorage.removeItem('username');
+    localStorage.setItem('isUserLoggedIn', 'false');  
+    this.router.navigate(['/home']);  
     this.toastr.success('Se cerró la sesión correctamente', 'Adiós');
   }
 

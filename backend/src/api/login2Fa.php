@@ -33,6 +33,7 @@ if ($consulta->num_rows > 0) {
         // Preparar la respuesta
         $response = [
             'success' => true,
+            'username' => $username,
             'role' => $role,
             'newToken' => $newToken // Devolver el nuevo token
         ];

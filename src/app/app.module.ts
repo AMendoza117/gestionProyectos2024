@@ -28,6 +28,9 @@ import { VerActividadComponent } from './components/ver-actividad/ver-actividad.
 import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { MapaComponent } from './components/mapa/mapa.component';
+import { EditarPerfilComponent } from './components/miPerfil/editar-perfil.component';
+import { NavbarComponent2 } from './shared/navbar2/navbar.component';
+
 
 @NgModule({
   declarations: [
@@ -45,8 +48,11 @@ import { MapaComponent } from './components/mapa/mapa.component';
     RegistrarActividadComponent,
     VerActividadComponent,
     RegistrarUsuarioComponent,
+    MapaComponent,
     ProyectosComponent,
-    MapaComponent
+    EditarPerfilComponent,
+    NavbarComponent2
+
 
   ],
   imports: [

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../api.service';
-import { Responsable } from 'app/Models/responsable.model';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http'; // No es necesario importar HttpClient aquí
-
+import { ToastrService } from 'ngx-toastr';
+import { Usuario } from 'app/Models/usuario.model';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -13,58 +11,65 @@ import { HttpClient } from '@angular/common/http'; // No es necesario importar H
 })
 export class RegistrarUsuarioComponent implements OnInit {
   proyectoForm: FormGroup;
-  documentoForm = new FormGroup({
-    fileSource: new FormControl('', [Validators.required]),
-  });
+  usuarios: Usuario[] = []; // Variable para almacenar la lista de usuarios
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private router: Router, private http: HttpClient) { }
+  constructor(private apiService: ApiService, private fb: FormBuilder, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.proyectoForm = this.fb.group({
-      username: ['', [Validators.required]],
-      nombre: ['', [Validators.required, Validators.maxLength(10)]],
+      nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
-      correo: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       role: [null, [Validators.required]],
     });
+
+    // Obtener la lista de usuarios al inicializar el componente
+    this.obtenerUsuarios();
   }
 
-  onFileChange(event) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.documentoForm.patchValue({
-        fileSource: file
-      });
-    }
+  obtenerUsuarios() {
+    // Llamar al servicio para obtener la lista de usuarios
+    this.apiService.obtenerUsuarios().subscribe(
+      (response: Usuario[]) => {
+        this.usuarios = response;
+      },
+      (error) => {
+        this.toastr.error('Error al obtener la lista de usuarios', 'Error');
+      }
+    );
   }
 
+  eliminarUsuario(id: string) {
+    // Llamar al servicio para eliminar el usuario
+    this.apiService.eliminarUsuario(id).subscribe(
+      (response) => {
+        // Actualizar la lista de usuarios después de eliminar
+        this.obtenerUsuarios();
+        this.toastr.success('Usuario eliminado correctamente', 'Exito');
+      },
+      (error) => {
+        this.toastr.error('Error al eliminar el usuario', 'Error');
+      }
+    );
+  }
 
   onSubmit() {
     if (this.proyectoForm.valid) {
       const usuarioData = this.proyectoForm.value;
 
-      this.http.post<any>('tu_script_php.php', usuarioData).subscribe(
+      this.apiService.registrarUsuario(usuarioData).subscribe(
         (response) => {
-          if (response && response.success) {
-            this.proyectoForm.reset();  
-            window.location.reload();
-          } else {
-            console.error('Error al registrar proyecto.');
-          }
+          this.toastr.success('Usuario registrado correctamente', 'Exito');
+          this.proyectoForm.reset();
+          // Actualizar la lista de usuarios después de registrar uno nuevo
+          this.obtenerUsuarios();
         },
         (error) => {
-          console.error('Error en la solicitud para registrar proyecto: ', error);
+          this.toastr.error('Error al registrar el usuario', 'Error');
         }
-      );
+      )
+    } else {
+      this.toastr.error('Hay algo mal con tu solicitud', 'Error');
     }
   }
-
-  redirectToHome() {
-    this.router.navigate(['/dashboard']);
-  }
-
-
-
-
 }
