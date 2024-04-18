@@ -1,0 +1,21 @@
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 10px;
+}
+
+.navbar-nav .nav-item:last-child {
+    margin-right: 10px;
+}
+
+.bg-navy {
+    background-color: #117c5d; /* Cambia este valor por el color deseado */
+}

@@ -41,7 +41,7 @@ const routes: Routes = [
   { path: 'actividades', component: ActividadesComponent, canActivate: [AuthGuardService]},
   { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuardService]},
   { path: 'gusuarios', component: RegistrarUsuarioComponent, canActivate: [AuthGuardService]},
-  { path: 'mi-perfil', component: EditarPerfilComponent}
+  { path: 'mi-perfil', component: EditarPerfilComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({

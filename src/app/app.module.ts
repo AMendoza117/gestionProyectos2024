@@ -29,6 +29,7 @@ import { RegistrarUsuarioComponent } from './components/registrar-usuario/regist
 import { ActividadesComponent } from './components/actividades/actividades.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
 import { EditarPerfilComponent } from './components/miPerfil/editar-perfil.component';
+import { NavbarComponent2 } from './shared/navbar2/navbar.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EditarPerfilComponent } from './components/miPerfil/editar-perfil.compo
     RegistrarUsuarioComponent,
     ActividadesComponent,
     ProyectosComponent,
-    EditarPerfilComponent
+    EditarPerfilComponent,
+    NavbarComponent2
 
   ],
   imports: [
