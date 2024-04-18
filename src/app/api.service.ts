@@ -9,6 +9,7 @@ import { VerProyecto } from './Models/VerProyecto.model';
 import { Stakeholder } from './Models/Stakeholder.model';
 import { PagosParciales } from './Models/PagosParciales.model';
 import { environment } from 'environments/environment';
+import { Usuario } from './Models/usuario.model';
 
 @Injectable({
   providedIn: 'root',
@@ -51,6 +52,13 @@ export class ApiService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, proyecto, { headers });
+  }
+
+  registrarUsuario(usuario: any): Observable<any> {
+    const url = `${this.apiUrl}/api/registrarUsuario.php`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, usuario, { headers });
   }
 
   // Registrar Actividad
@@ -168,6 +176,19 @@ export class ApiService {
     return this.http.post(url, data, { headers });
   }
 
+  obtenerUsuarios(): Observable<Usuario[]> {
+    const url = `${this.apiUrl}/api/obtenerUsuarios.php`; // Reemplaza "obtenerUsuarios.php" con el nombre de tu archivo PHP para obtener usuarios
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.get<Usuario[]>(url, { headers });
+  }
+
+
+  eliminarUsuario(id: string): Observable<any> {
+    const url = `${this.apiUrl}/api/eliminarUsuario.php`; // Reemplaza "eliminarUsuario.php" con el nombre de tu archivo PHP para eliminar usuarios
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(url, { id }, { headers });
+  }
+
   login(username: string, password: string): Observable<any> {
     const credentials = { username, password };
 
@@ -202,5 +223,20 @@ export class ApiService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(url, credentials, { headers });
+  }
+
+  actualizarPerfil(profileData: any): Observable<any> {
+    const url = `${this.apiUrl}/api/updateProfile.php`;
+    return this.http.put<any>(url, profileData);
+  }
+
+  actualizarContraseña2(passwordData: any): Observable<any> {
+    const url = `${this.apiUrl}/api/updatePassword.php`;
+    return this.http.put<any>(url, passwordData);
+  }
+
+  obtenerPerfil(username: string): Observable<any> {
+    const url = `${this.apiUrl}/api/obtenerPerfil.php?username=${username}`;
+    return this.http.get(url);
   }
 }

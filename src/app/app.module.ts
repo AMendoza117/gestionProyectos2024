@@ -28,6 +28,7 @@ import { VerActividadComponent } from './components/ver-actividad/ver-actividad.
 import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
 import { ActividadesComponent } from './components/actividades/actividades.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { EditarPerfilComponent } from './components/miPerfil/editar-perfil.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ProyectosComponent } from './components/proyectos/proyectos.component';
     VerActividadComponent,
     RegistrarUsuarioComponent,
     ActividadesComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    EditarPerfilComponent
 
   ],
   imports: [

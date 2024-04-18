@@ -1,35 +1,41 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ApiService } from 'app/api.service';
 import { AuthService } from 'app/services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-actualizarContraseña-componente',
-    templateUrl: './actualizarContraseña.component.html',
-    styleUrls: ['./actualizarContraseña.component.css']
+  selector: 'app-actualizarContraseña-componente',
+  templateUrl: './actualizarContraseña.component.html',
+  styleUrls: ['./actualizarContraseña.component.css']
 })
 export class ActualizarContraseñaComponent {
-    test: Date = new Date();
-    focus;
-    focus1;
+  formulario: FormGroup;
+  focus;
+  focus1;
 
-    token: string = '';
-    password: string = '';
-    constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastr: ToastrService, private apiService: ApiService) { }
+  constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService, private toastr: ToastrService, private apiService: ApiService) {
+    this.formulario = this.formBuilder.group({
+      token: ['', Validators.required],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
+      ]]
+    });
+  }
 
-    ngOnInit() { }
-
-    login() {
-        this.apiService.actualizarContraseña(this.token, this.password).subscribe((response) => {
-            if (response.success) {
-                this.router.navigate(['/signup']);
-                this.toastr.success('Contraseña actualizada', 'Exito')
-            } else {
-                this.toastr.error('Token invalido', 'Error');
-            }
-        });
+  login() {
+    if (this.formulario.valid) {
+      this.apiService.actualizarContraseña(this.formulario.value.token, this.formulario.value.password).subscribe((response) => {
+        if (response.success) {
+          this.router.navigate(['/signup']);
+          this.toastr.success('Contraseña actualizada', 'Éxito');
+        } else {
+          this.toastr.error('Token inválido', 'Error');
+        }
+      });
     }
-
+  }
 }

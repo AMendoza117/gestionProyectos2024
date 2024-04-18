@@ -101,6 +101,7 @@ export class AuthService {
             localStorage.setItem('userRole', JSON.stringify(this.userRole)); // Guarda el rol en localStorage
             localStorage.setItem('authToken', this.authToken); // Guarda el token en localStorage
             localStorage.setItem('tokenExpiration', this.tokenExpiration.toISOString()); // Guarda la fecha de expiración en localStorage
+            localStorage.setItem('username', response.username); 
             this.startTokenExpirationTimer(); // Inicia el temporizador de caducidad del token
             this.router.navigate([this.getRedirectUrl()]);
           } else {
@@ -212,6 +213,7 @@ export class AuthService {
     localStorage.removeItem('userRole');
     localStorage.removeItem('authToken');
     localStorage.removeItem('tokenExpiration');
+    localStorage.removeItem('username');
     this.router.navigate(['/home']);
     this.toastr.success('Se cerró la sesión correctamente', 'Adiós');
   }

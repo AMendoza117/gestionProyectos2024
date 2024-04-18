@@ -20,6 +20,7 @@ import { VerActividadComponent } from './components/ver-actividad/ver-actividad.
 import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
 import { ActividadesComponent } from './components/actividades/actividades.component';
 import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { EditarPerfilComponent } from './components/miPerfil/editar-perfil.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -35,11 +36,12 @@ const routes: Routes = [
   { path: 'recuperar-contrasena', component: GetTokenComponent},
   { path: 'actualizar-contrasena', component: ActualizarContraseñaComponent},
   { path: 'login2FA', component: Login2FAComponent},
-  { path: 'registrar-actividad', component: RegistrarActividadComponent},
-  { path: 'ver-actividad', component: VerActividadComponent},
-  { path: 'registrar-usuario', component: RegistrarUsuarioComponent},
-  { path: 'actividades', component: ActividadesComponent},
-  { path: 'proyectos', component: ProyectosComponent}
+  { path: 'registrar-actividad', component: RegistrarActividadComponent, canActivate: [AuthGuardService]},
+  { path: 'ver-actividad', component: VerActividadComponent, canActivate: [AuthGuardService]},
+  { path: 'actividades', component: ActividadesComponent, canActivate: [AuthGuardService]},
+  { path: 'proyectos', component: ProyectosComponent, canActivate: [AuthGuardService]},
+  { path: 'gusuarios', component: RegistrarUsuarioComponent, canActivate: [AuthGuardService]},
+  { path: 'mi-perfil', component: EditarPerfilComponent}
 ];
 
 @NgModule({
