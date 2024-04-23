@@ -15,15 +15,21 @@ export class AppComponent implements OnInit {
     private _router: Subscription;
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
     isLoggedIn: boolean = false;
+    showRegularNavbar: boolean = true;
 
-    constructor( private renderer : Renderer2, private router: Router, @Inject(DOCUMENT,) private document: any, private element : ElementRef, public location: Location, private authService: AuthService ) {}
+    constructor(private renderer: Renderer2, private router: Router, @Inject(DOCUMENT,) private document: any, private element: ElementRef, public location: Location, private authService: AuthService) { }
     ngOnInit() {
-        this.isLoggedIn = this.authService.isUserLoggedIn();
-        var navbar : HTMLElement = this.element.nativeElement.children[0].children[0];
+        this.router.events.pipe(
+            filter(event => event instanceof NavigationEnd)
+        ).subscribe((event: NavigationEnd) => {
+            this.showRegularNavbar = this.shouldShowRegularNavbar(event.url);
+        });
+
+        var navbar: HTMLElement = this.element.nativeElement.children[0].children[0];
         this._router = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
             if (window.outerWidth > 991) {
                 window.document.children[0].scrollTop = 0;
-            }else{
+            } else {
                 window.document.activeElement.scrollTop = 0;
             }
             this.navbar.sidebarClose();
@@ -54,12 +60,29 @@ export class AppComponent implements OnInit {
     }
     removeFooter() {
         var titlee = this.location.prepareExternalUrl(this.location.path());
-        titlee = titlee.slice( 1 );
-        if(titlee === 'signup' || titlee === 'nucleoicons'){
+        titlee = titlee.slice(1);
+        if (titlee === 'signup' || titlee === 'nucleoicons') {
             return false;
         }
         else {
             return true;
         }
     }
+
+    shouldShowRegularNavbar(url: string): boolean {
+        const regularRoutes = [
+          '/home',
+          '/signup',
+          '/landing',
+          '/nucleoicons',
+          '/recuperar-contrasena',
+          '/actualizar-contrasena',
+          '/login2FA'
+          // Agrega más rutas aquí si es necesario
+        ];
+      
+        // Comprueba si la ruta actual está en la lista de rutas regulares
+        return regularRoutes.some(route => url.includes(route));
+      }
+      
 }
