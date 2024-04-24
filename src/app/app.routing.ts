@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'landing', component: LandingComponent },
   { path: 'nucleoicons', component: NucleoiconsComponent },
-  { path: 'ver-proyectop', component: NotificationComponent, canActivate: [AuthGuardService]},
+  { path: 'ver-proyectop', component: NotificationComponent },
 
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
   { path: 'registrar-proyecto', component: RegistrarProyectoComponent, canActivate: [AuthGuardService]},

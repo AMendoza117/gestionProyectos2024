@@ -77,7 +77,8 @@ export class AppComponent implements OnInit {
           '/nucleoicons',
           '/recuperar-contrasena',
           '/actualizar-contrasena',
-          '/login2FA'
+          '/login2FA',
+            '/ver-proyectop'
           // Agrega más rutas aquí si es necesario
         ];
       
