@@ -1,19 +1,16 @@
-<<<<<<< HEAD
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
     <li class="breadcrumb-item"><a routerLink="/registrar-usuario">Registrar Usuarios</a></li>
   </ol>
 </nav>
-=======
->>>>>>> d692e7def15bf119e6877dd327d8726c39b0c95b
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3>Gestioón de Usuarios</h3>
+            <h3>Gestión de Usuarios</h3>
           </div>
 
           <div class="container">
@@ -40,8 +37,13 @@
               <!-- Rol -->
               <div class="form-group">
                 <label for="role">Rol:</label>
-                <input type="text" id="role" formControlName="role" class="form-control" required>
-              </div>        
+                <select id="role" formControlName="role" class="form-control" required>
+                  <option value="">Selecciona un rol</option>
+                  <option value="admin">Administrador</option>
+                  <option value="usuario">Trabajador</option>
+                  <option value="cliente">Cliente</option>
+                </select>
+              </div>       
 
               <button type="submit" class="btn" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Registrar Usuario</button>
             </form>

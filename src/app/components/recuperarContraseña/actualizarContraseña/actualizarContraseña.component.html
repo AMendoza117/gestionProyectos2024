@@ -34,9 +34,8 @@
                 <div *ngIf="formulario.get('password').invalid && (formulario.get('password').dirty || formulario.get('password').touched)">
                   <div *ngIf="formulario.get('password').errors.required" class="alert alert-danger">La contraseña es requerida.</div>
                   <div *ngIf="formulario.get('password').errors.minlength" class="alert alert-danger">La contraseña debe tener al menos 8 caracteres.</div>
-                  <div *ngIf="formulario.get('password').errors.pattern" class="alert alert-danger">La contraseña debe contener al menos un dígito, un carácter especial, una letra minúscula y una letra mayúscula.</div>
+                  <div *ngIf="perfilForm.get('password').errors.strong" class="alert alert-danger">La contraseña debe contener al menos un número, una letra mayúscula y una minúscula</div>
                 </div>
-                
                 <button type="submit" class="btn btn-danger btn-block btn-round">Actualizar contraseña</button>
               </form>
             </div>
