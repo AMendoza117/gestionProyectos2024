@@ -14,7 +14,7 @@ import { PagosParciales } from 'app/Models/PagosParciales.model';
   styleUrls: ['./ver-actividad.component.css']
 })
 export class VerActividadComponent implements OnInit {
-  mostrarTabla = false;
+  mostrarTabla = true;
   verActividad: VerActividad;
   verProyecto: VerProyecto;
   idActividad: number;

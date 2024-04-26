@@ -12,7 +12,7 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./registrar-proyecto.component.css']
 })
 export class RegistrarProyectoComponent implements OnInit {
-  mostrarTabla = false;
+  mostrarTabla = true;
   lastConsecutivo: string;
   proyectoForm: FormGroup;
   responsables: Responsable[];

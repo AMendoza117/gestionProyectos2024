@@ -12,7 +12,7 @@ import { Usuario } from 'app/Models/usuario.model';
 export class RegistrarUsuarioComponent implements OnInit {
   proyectoForm: FormGroup;
   usuarios: Usuario[] = []; // Variable para almacenar la lista de usuarios
-  mostrarTabla = false;
+  mostrarTabla = true;
 
   constructor(private apiService: ApiService, private fb: FormBuilder, private toastr: ToastrService) { }
 

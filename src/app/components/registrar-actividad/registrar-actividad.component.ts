@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./registrar-actividad.component.css']
 })
 export class RegistrarActividadComponent implements OnInit {
-  mostrarTabla = false;
+  mostrarTabla = true;
   verProyecto: VerProyecto;
   rol = null;
   idProyecto: number;

@@ -14,7 +14,7 @@ import { ApiService } from 'app/api.service';
 })
 export class DashboardComponent implements OnInit {
   proyectos: Proyecto[];
-  mostrarTabla = false;
+  mostrarTabla = true;
   lideresConProyectos: LiderConProyectos[];
   numProyectos: number;
   numProyectosActivos: number;
