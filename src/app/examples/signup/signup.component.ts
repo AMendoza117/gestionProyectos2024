@@ -26,7 +26,7 @@ export class SignupComponent implements OnInit {
     ngOnInit() { }
 
     login() {
-        //if (this.captchaResolved) {
+        if (this.captchaResolved) {
             this.apiService.login(this.username, this.password).subscribe((response) => {
                 if (response.success) {
                     this.toastr.info('Token enviado al correo electrónico', 'Éxito');
@@ -36,9 +36,9 @@ export class SignupComponent implements OnInit {
                     console.log('Error de inicio de sesión');
                 }
             });
-        //} else {
-           // this.toastr.error('Por favor, complete el captcha', 'Error');
-        //}
+        } else {
+           this.toastr.error('Por favor, complete el captcha', 'Error');
+        }
     }
 
     resolved(captchaResponse: string) {
@@ -53,21 +53,3 @@ export class SignupComponent implements OnInit {
     }
 }
 
-
-/*
-import { Component, OnInit } from '@angular/core';
-
-@Component({
-    selector: 'app-signup',
-    templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.scss']
-})
-export class SignupComponent implements OnInit {
-    test : Date = new Date();
-    focus;
-    focus1;
-    constructor() { }
-
-    ngOnInit() {}
-}
-*/

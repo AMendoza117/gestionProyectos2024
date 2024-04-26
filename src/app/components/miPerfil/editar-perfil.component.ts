@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../api.service';
 import { ToastrService } from 'ngx-toastr';
+import { PasswordValidator } from 'app/services/password.validator';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -26,10 +27,10 @@ export class EditarPerfilComponent implements OnInit {
         username: [{ value: this.username, disabled: true }], // Deshabilitar la edición del username
         password: ['', Validators.required],
         currentPassword: [''],
-        newPassword: ['',
-        [Validators.minLength(8),
-        Validators.pattern(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)]
-        ],
+        newPassword: ['',[
+          Validators.minLength(8),
+          PasswordValidator.strong
+        ]],
         confirmPassword: ['']
       });
 

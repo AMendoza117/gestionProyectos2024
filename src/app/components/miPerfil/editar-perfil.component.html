@@ -31,7 +31,7 @@
                                 <label for="username">Nombre de Usuario:</label>
                                 <input type="text" id="username" formControlName="username" class="form-control" [readonly]="true" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                            <button type="submit" class="btn"class="btn" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Guardar Cambios</button>
                         </form>
                         <hr>
                         <form [formGroup]="perfilForm" (ngSubmit)="onUpdatePassword()">
@@ -45,7 +45,7 @@
                                 <div *ngIf="perfilForm.get('newPassword').invalid && perfilForm.get('newPassword').touched">
                                     <small class="text-danger" *ngIf="perfilForm.get('newPassword').errors.required">La contraseña es requerida</small>
                                     <small class="text-danger" *ngIf="perfilForm.get('newPassword').errors.minlength">La contraseña debe tener al menos 8 caracteres</small>
-                                    <small class="text-danger" *ngIf="perfilForm.get('newPassword').errors.pattern">La contraseña debe contener al menos un número y un carácter especial</small>
+                                    <small class="text-danger" *ngIf="perfilForm.get('newPassword').errors.strong">La contraseña debe contener al menos un número, una letra mayúscula y una minúscula</small>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -56,7 +56,7 @@
                                     <small class="text-danger" *ngIf="perfilForm.get('confirmPassword').errors.passwordMismatch">Las contraseñas no coinciden</small>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Actualizar Contraseña</button>
+                            <button type="submit" class="btn" class="btn" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Actualizar Contraseña</button>
                         </form>
                     </div>
                 </div>

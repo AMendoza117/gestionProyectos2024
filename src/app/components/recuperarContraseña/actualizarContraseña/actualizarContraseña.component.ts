@@ -4,6 +4,7 @@ import { AuthService } from 'app/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { PasswordValidator } from 'app/services/password.validator';
 
 @Component({
   selector: 'app-actualizarContraseña-componente',
@@ -21,7 +22,7 @@ export class ActualizarContraseñaComponent {
       password: ['', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/)
+        PasswordValidator.strong
       ]]
     });
   }

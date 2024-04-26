@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 })
 export class VerActividadComponent implements OnInit {
   mostrarTabla = false;
-  VerProyecto: VerProyecto;
   verActividad: VerActividad;
   idActividad: number;
   idProyecto: number;

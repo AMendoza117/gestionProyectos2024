@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
     isLoggedIn: boolean = false;
     showRegularNavbar: boolean = true;
+    showRegularNavbar2: boolean = true;
 
     constructor(private renderer: Renderer2, private router: Router, @Inject(DOCUMENT,) private document: any, private element: ElementRef, public location: Location, private authService: AuthService) { }
     ngOnInit() {
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
             filter(event => event instanceof NavigationEnd)
         ).subscribe((event: NavigationEnd) => {
             this.showRegularNavbar = this.shouldShowRegularNavbar(event.url);
+            this.showRegularNavbar2 = this.shouldShowRegularNavbar2(event.url);
         });
 
         var navbar: HTMLElement = this.element.nativeElement.children[0].children[0];
@@ -70,6 +72,10 @@ export class AppComponent implements OnInit {
     }
 
     shouldShowRegularNavbar(url: string): boolean {
+        if (url === null || url === undefined) {
+            return true;
+        }
+
         const regularRoutes = [
           '/home',
           '/signup',
@@ -78,12 +84,28 @@ export class AppComponent implements OnInit {
           '/recuperar-contrasena',
           '/actualizar-contrasena',
           '/login2FA',
-            '/ver-proyectop'
+          '/ver-proyectop',
           // Agrega más rutas aquí si es necesario
         ];
       
         // Comprueba si la ruta actual está en la lista de rutas regulares
         return regularRoutes.some(route => url.includes(route));
       }
+
+      shouldShowRegularNavbar2(url: string): boolean {
+        const regularRoutes = [
+          '/registrar-actividad',
+          '/ver-actividad',
+          '/proyectos',
+          '/gusuarios',
+          '/mi-perfil',
+          '/dashboard',
+          '/registrar-proyecto',
+          '/ver-proyecto/:id'
+          // Agrega más rutas aquí si es necesario
+        ];
       
+        // Comprueba si la ruta actual está en la lista de rutas regulares
+        return regularRoutes.some(route => url.includes(route));
+      }
 }

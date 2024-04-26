@@ -14,8 +14,8 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3>Gestioón de Usuarios</h3>
 
+            <h3>Gestión de Usuarios</h3>
           </div>
 
           <div class="container">
@@ -42,8 +42,13 @@
               <!-- Rol -->
               <div class="form-group">
                 <label for="role">Rol:</label>
-                <input type="text" id="role" formControlName="role" class="form-control" required>
-              </div>        
+                <select id="role" formControlName="role" class="form-control" required>
+                  <option value="">Selecciona un rol</option>
+                  <option value="admin">Administrador</option>
+                  <option value="usuario">Trabajador</option>
+                  <option value="cliente">Cliente</option>
+                </select>
+              </div>       
 
               <button type="submit" class="btn" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Registrar Usuario</button>
             </form>
@@ -75,7 +80,6 @@
               </tbody>
             </table>
           </div>
->>>>>>> 5d2b112143e689510f2a264d90072a3deae9db1f
 
         </div>
       </div>
