@@ -58,6 +58,9 @@ export class VerProyectoComponent implements OnInit {
         this.loadProyecto(this.idProyecto);
       }
     });
+    this.loadActividades(this.idProyecto);
+
+    console.log("Id proyecto jajjaja:", this.idProyecto);
   }
 
   agregarPagoParcial() {
@@ -94,10 +97,11 @@ redirectToProyectoDetalle(proyecto: Proyecto) {
     }
   }
 
-  loadActividades() {
-    this.apiService.loadActividades().subscribe(
+  loadActividades(idProyecto: number) {
+    this.apiService.loadActividades2(idProyecto).subscribe(
       (actividades: Actividad[]) => {
         this.actividades = actividades;
+        console.log("Actividades: ",this.actividades)
         this.numActividades = actividades.length;
         this.numActividadesActivas = actividades.filter(p => p.estadoActividad === 'Activa').length;
         this.numActividadesCompletadas = actividades.filter(p => p.estadoActividad === 'Completada').length;

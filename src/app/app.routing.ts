@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'login2FA', component: Login2FAComponent},
   { path: 'mapa', component: MapaComponent},
   { path: 'registrar-actividad/:id', component: RegistrarActividadComponent,  canActivate: [AuthGuardService]},
-  { path: 'ver-actividad', component: VerActividadComponent,  canActivate: [AuthGuardService]},
+  { path: 'ver-actividad/:id', component: VerActividadComponent,  canActivate: [AuthGuardService]},
   { path: 'proyectos', component: ProyectosComponent,  canActivate: [AuthGuardService]},
   { path: 'gusuarios', component: RegistrarUsuarioComponent,  canActivate: [AuthGuardService]},
   { path: 'mi-perfil', component: EditarPerfilComponent,  canActivate: [AuthGuardService]}
