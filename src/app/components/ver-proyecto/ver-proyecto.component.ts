@@ -25,6 +25,10 @@ export class VerProyectoComponent implements OnInit {
   verProyecto: VerProyecto;
   idProyecto: number;
   idProyecto2: number;
+  numActividades: number;
+  numActividadesActivas: number;
+  numActividadesCompletadas: number;
+
   documentoForm = new FormGroup({
     fileSource: new FormControl('', [Validators.required]),
   });
@@ -90,6 +94,30 @@ redirectToProyectoDetalle(proyecto: Proyecto) {
     }
   }
 
+  loadActividades() {
+    this.apiService.loadActividades().subscribe(
+      (actividades: Actividad[]) => {
+        this.actividades = actividades;
+        this.numActividades = actividades.length;
+        this.numActividadesActivas = actividades.filter(p => p.estadoActividad === 'Activa').length;
+        this.numActividadesCompletadas = actividades.filter(p => p.estadoActividad === 'Completada').length;
+      },
+      (error) => {
+        console.error('Error al cargar actividades:', error);
+      }
+    );
+  }
+
+  loadActividad(idActividad: number) {
+    this.apiService.getActividadDetallada(idActividad).subscribe(
+      (verActividad: VerActividad) => {
+        this.verActividad = verActividad;
+      },
+      (error) => {
+        console.error('Error al cargar proyecto:', error);
+      }
+    );
+  }
 
 
 redirectToActividad(){ 
@@ -155,16 +183,6 @@ redirectToActividad(){
     );
   }
 
-  loadActividades() {
-    this.apiService.getActividades().subscribe(
-      (actividades: Actividad[]) => {
-        this.actividades = actividades;
-      },
-      (error) => {
-        console.error('Error al cargar proyectos:', error);
-      }
-    );
-  }
 
   onFileChange(event) {
     if (event.target.files.length > 0) {

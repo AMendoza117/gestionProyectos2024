@@ -89,7 +89,7 @@ export class ApiService {
     return this.http.get<Proyecto[]>(url, { headers });
   }
 
-  getActividades(): Observable<Actividad[]> {
+  loadActividades(): Observable<Actividad[]> {
     const url = `${this.apiUrl}/api/loadActividades.php`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

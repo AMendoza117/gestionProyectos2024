@@ -1,12 +1,13 @@
+import { VerProyecto } from './../../Models/VerProyecto.model';
 import { VerActividad } from './../../Models/VerActividad.model';
 // ver-proyecto.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'app/api.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { VerProyecto } from 'app/Models/VerProyecto.model';
 import { Stakeholder } from 'app/Models/Stakeholder.model';
-import { PagosParciales } from 'app/Models/PagosParciales.model';
+import { Actividad } from 'app/Models/Actividad.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ver-actividad',
@@ -15,8 +16,8 @@ import { PagosParciales } from 'app/Models/PagosParciales.model';
 })
 export class VerActividadComponent implements OnInit {
   mostrarTabla = false;
+  VerProyecto: VerProyecto;
   verActividad: VerActividad;
-  verProyecto: VerProyecto;
   idActividad: number;
   idProyecto: number;
   documentoForm = new FormGroup({
@@ -30,7 +31,7 @@ export class VerActividadComponent implements OnInit {
     idProyecto: null
   };
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { 
+  constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) { 
     
   }
 
@@ -51,7 +52,7 @@ export class VerActividadComponent implements OnInit {
   }    
 
   loadActividad(idActividad: number) {
-    if(this.idProyecto === this.idProyecto){
+    if(this.idActividad === this.idActividad){
     this.apiService.getActividadDetallada(idActividad).subscribe(
       (verActividad: VerActividad) => {
         this.verActividad = verActividad;
@@ -69,6 +70,15 @@ export class VerActividadComponent implements OnInit {
       this.documentoForm.patchValue({
         fileSource: file
       });
+    }
+  }
+
+  redirectToActividadDetalle(actividad: Actividad) {
+    if (actividad && actividad.idActividad) {
+      const url = ['ver-actividad', actividad.idActividad];
+      this.router.navigate(url);
+    } else {
+      console.error('ID de proyecto indefinido. No se puede navegar.');
     }
   }
 

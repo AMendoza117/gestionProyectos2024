@@ -5,6 +5,7 @@ import { LiderConProyectos } from 'app/Models/liderConProyectos.model';
 import { Lider } from 'app/Models/Lider.model';
 import { AuthService } from 'app/services/auth.service';
 import { ApiService } from 'app/api.service';
+import { Actividad } from 'app/Models/Actividad.model';
 
 
 @Component({
@@ -23,6 +24,11 @@ export class DashboardComponent implements OnInit {
     idLiderProyecto: null,
     nombre: ''
   };
+  actividades: Actividad[];
+  lideresConProyectos1: LiderConProyectos[];
+  numActividades: number;
+  numActividadesActivas: number;
+  numActividadesCompletadas: number;
 
   constructor(private apiService: ApiService, private router: Router, private authService: AuthService) { }
 
@@ -40,6 +46,7 @@ export class DashboardComponent implements OnInit {
 
   // Implementar el método update para refrescar la información
   update(): void {
+    this.loadActividades();
     this.loadProyectos();
     this.loadLideresConProyectos();
   }
@@ -59,6 +66,20 @@ export class DashboardComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar proyectos:', error);
+      }
+    );
+  }
+
+  loadActividades() {
+    this.apiService.loadActividades().subscribe(
+      (actividades: Actividad[]) => {
+        this.actividades = actividades;
+        this.numActividades = actividades.length;
+        this.numActividadesActivas = actividades.filter(p => p.estadoActividad === 'Activa').length;
+        this.numActividadesCompletadas = actividades.filter(p => p.estadoActividad === 'Completada').length;
+      },
+      (error) => {
+        console.error('Error al cargar actividades:', error);
       }
     );
   }

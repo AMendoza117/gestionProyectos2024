@@ -33,6 +33,10 @@
                                         <td>{{ verActividad.nombreActividad }}</td>
                                     </tr>
                                     <tr>
+                                        <td>Nombre Corto</td>
+                                        <td>{{ verActividad.nombreCorto }}</td>
+                                    </tr>
+                                    <tr>
                                         <td>Descripción</td>
                                         <td>{{ verActividad.descripcion }}</td>
                                     </tr>
@@ -46,14 +50,10 @@
                                     </tr>
                                     <tr>
                                         <td>Estado de ña Actividad</td>
-                                        <td>{{ verActividad.estadoProyecto }}</td>
+                                        <td>{{ verActividad.estadoActividad }}</td>
                                     </tr>
                                     <tr>
                                         <td>Encargado de la Actividad</td>
-                                        <td>{{ verActividad.nombreLiderProyecto }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Líder del Proyecto</td>
                                         <td>{{ verActividad.nombreLiderProyecto }}</td>
                                     </tr>
                                 </tbody>
@@ -65,37 +65,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>PDFs</h3>
-                    </div>
-                    <div class="card-body">
-                        <ul>
-                            <li *ngFor="let pdf of verProyecto.pdfs">
-                                <a href="{{ getPDFUrl(pdf) }}" target="_blank">{{ extractFileName(pdf) }}</a>
-                            </li>
-                        </ul>
-
-                        <!-- agregar pdf -->
-                        <div>
-                            <h5>Agregar PDF</h5>
-                            <!--form (ngSubmit)="agregarDocumento()" enctype="multipart/form-data">
-                                <label for="pdfFile">Seleccionar PDF:</label>
-                                <input type="file" id="pdfFile" (change)="onFileChange($event)" name="pdfFile"
-                                    accept=".pdf" required>
-
-                                <button type="submit" style="margin-left: 10px;" class="btn btn-primary" [disabled]="documentoForm.invalid">Agregar
-                                    PDF</button>
-                            </!--form>
-                        </div>
-                        < fin agregar pdf -->
-
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row" *ngif="mostrarTabla">
             <div class="col-md-12">
                 <div class="card">

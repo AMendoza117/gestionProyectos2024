@@ -19,6 +19,7 @@ if ($resultadoActividadDetallada) {
     // Obtener la información detallada de la actividad
     $verActividad = array(
         "idActividad" => $row["idActividad"],
+        "folio" => $row["folio"],
         "nombreActividad" => $row["nombreActividad"],
         "nombreCorto" => $row["nombreCorto"],
         "descripcion" => $row["descripcion"],
@@ -27,7 +28,6 @@ if ($resultadoActividadDetallada) {
         "idResponsable" => $row["idResponsable"],
         "estadoActividad" => $row["estadoActividad"],
         "idLiderProyecto" => $row["idLiderProyecto"],
-        "nombreLiderProyecto" => $row["nombreLiderProyecto"]
     );
 
     // Consulta para obtener los PDFs relacionados con la actividad
