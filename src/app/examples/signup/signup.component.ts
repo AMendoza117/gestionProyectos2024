@@ -37,7 +37,7 @@ export class SignupComponent implements OnInit {
                 }
             });
         //} else {
-        //    this.toastr.error('Por favor, complete el captcha', 'Error');
+           // this.toastr.error('Por favor, complete el captcha', 'Error');
         //}
     }
 

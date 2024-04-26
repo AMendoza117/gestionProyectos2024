@@ -7,7 +7,7 @@
 }
 
 .main-content .card-header {
-    background-color: #117c5d;
+    background-color: #007bff;
     color: white;
     padding: 10px;
     text-align: center;
@@ -46,4 +46,3 @@
     border-radius: 5px;
     margin-bottom: 20px;
 }
-

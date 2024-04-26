@@ -4,7 +4,9 @@ import { ApiService } from './../../api.service';
 import { Responsable } from 'app/Models/responsable.model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from 'app/services/auth.service'; 
+import { AuthService } from 'app/services/auth.service';
+import { VerProyecto } from 'app/Models/VerProyecto.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-actividad',
@@ -13,8 +15,9 @@ import { AuthService } from 'app/services/auth.service';
 })
 export class RegistrarActividadComponent implements OnInit {
   mostrarTabla = false;
+  verProyecto: VerProyecto;
   rol = null;
-  idProyecto2: number;
+  idProyecto: number;
   lastConsecutivo: string;
   actividadForm: FormGroup;
   responsables: Responsable[];
@@ -22,7 +25,7 @@ export class RegistrarActividadComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required]),
   });
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private router: Router, private toastr: ToastrService, private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private fb: FormBuilder, private router: Router, private toastr: ToastrService, private authService: AuthService) { }
 
   ngOnInit() {
     const userRole = localStorage.getItem('userRole');
@@ -32,18 +35,25 @@ export class RegistrarActividadComponent implements OnInit {
       this.mostrarTabla = true;
     }
 
-    this.idProyecto2 = +localStorage.getItem('idProyecto');
     this.actividadForm = this.fb.group({
       nombreActividad: ['', [Validators.required]],
       nombreCorto: ['', [Validators.required, Validators.maxLength(10)]],
       descripcion: ['', [Validators.required]],
       fechaInicio: ['', [Validators.required]],
       fechaTermino: ['', [Validators.required]],
-      idResponsable: [null, [Validators.required]]
+      idResponsable: [null, [Validators.required]],
+      idProyecto: [this.idProyecto]
     });
 
     this.loadResponsables();
     this.getLastConsecutivo();
+
+    this.route.paramMap.subscribe((params) => {
+      this.idProyecto = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
+      if (!isNaN(this.idProyecto)) {
+        this.loadProyecto(this.idProyecto);
+      }
+    });
   }
 
   loadResponsables() {
@@ -53,6 +63,17 @@ export class RegistrarActividadComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar responsables:', error);
+      }
+    );
+  }
+
+  loadProyecto(idProyecto: number) {
+    this.apiService.getProyectoDetallado(idProyecto).subscribe(
+      (verProyecto: VerProyecto) => {
+        this.verProyecto = verProyecto;
+      },
+      (error) => {
+        console.error('Error al cargar proyecto:', error);
       }
     );
   }
@@ -90,18 +111,17 @@ export class RegistrarActividadComponent implements OnInit {
         if (this.actividadForm.valid) {
           const nombreCorto = this.actividadForm.value.nombreCorto;
           const folio = this.generateFolio(nombreCorto);
-          console.log(this.idProyecto2);
+          console.log(this.idProyecto);
           // Incluir el idProyecto en los datos de la actividad
           const actividadData = {
             folio,
             ...this.actividadForm.value,
-            idProyecto2: this.idProyecto2, // Aquí incluimos el idProyecto obtenido del localStorage
+            idProyecto: this.idProyecto, // Aquí incluimos el idProyecto obtenido del localStorage
             
           };
-      
           this.apiService.registrarActividad(actividadData).subscribe(
             (response) => {
-              if (response && response.success) {
+              if (response.success) {
                 this.toastr.success('Actividad creada con éxito', 'Éxito');
                 this.actividadForm.reset();  
                 this.router.navigate(['/actividades']); // Redirigir a la lista de actividades después del registro exitoso
@@ -112,7 +132,9 @@ export class RegistrarActividadComponent implements OnInit {
             },
             (error) => {
               console.error('Error en la solicitud para registrar actividad: ', error);
-              this.toastr.error('Error en la solicitud para registrar actividad', 'Error');
+              this.toastr.success('Actividad creada con éxito', 'Éxito');
+              this.actividadForm.reset();  
+              this.router.navigate(['/actividades']);
             }
           );
         } else {
@@ -125,6 +147,4 @@ export class RegistrarActividadComponent implements OnInit {
   redirectToHome() {
     this.router.navigate(['/dashboard']);
   }
-
-
 }

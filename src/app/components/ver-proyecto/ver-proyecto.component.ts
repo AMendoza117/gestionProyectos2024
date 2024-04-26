@@ -47,17 +47,7 @@ export class VerProyectoComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.idProyecto2 = +params['idProyecto'];
-      if (!isNaN(this.idProyecto2)) {
-        localStorage.setItem('idProyecto', this.idProyecto2.toString());
-        console.log('idProyecto guardado en localStorage:', this.idProyecto2);
-      } else {
-        console.log('El valor de idProyecto no es un número válido:', this.idProyecto2);
-      }
-    });
-    
+  ngOnInit(): void {    
     this.route.paramMap.subscribe((params) => {
       this.idProyecto = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
       if (!isNaN(this.idProyecto)) {
@@ -90,6 +80,25 @@ export class VerProyectoComponent implements OnInit {
       }
     )
   }
+
+redirectToProyectoDetalle(proyecto: Proyecto) {
+    if (proyecto && proyecto.idProyecto) {
+      const url = ['registrar-actividad', proyecto.idProyecto];
+      this.router.navigate(url);
+    } else {
+      console.error('ID de proyecto indefinido. No se puede navegar.');
+    }
+  }
+
+
+
+redirectToActividad(){ 
+  if(!isNaN(this.idProyecto)){
+    const url = ['registrar-actividad', this.idProyecto];
+      this.router.navigate(url);
+      console.log(this.idProyecto);
+  }
+}
 
   agregarStakeholder() {
     if (!this.nuevoStakeholder.nombreCompleto|| !this.nuevoStakeholder.correoElectronico) {
