@@ -1,0 +1,48 @@
+.main-content {
+    padding: 20px;
+}
+
+.main-content .card {
+    margin-bottom: 20px;
+}
+
+.main-content .card-header {
+    background-color: #117c5d;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.main-content .card-header h3 {
+    margin: 0;
+}
+
+.main-content .card-body {
+    padding: 20px;
+}
+
+.main-content .card-body .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-content .card-body .project-box {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.main-content .card-body .project-box button {
+    margin-top: 10px;
+}
+
+.main-content .card-body .status-box,
+.main-content .card-body .project-list {
+    background-color: #e9ecef;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}

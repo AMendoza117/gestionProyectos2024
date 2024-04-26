@@ -1,16 +1,21 @@
+<br>
+<br>
+<br>
+<br>
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="/Dashboard">Inicio</a></li>
-    <li class="breadcrumb-item"><a routerLink="/"></a></li>
-  </ol>
-</nav>
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/"></a></li>
+    </ol>
+  </nav>
+
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Resumen</h3>
+                        <h3>Resumen de Proyectos</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -18,8 +23,6 @@
                                 <div class="project-box">
                                     <p>Proyectos</p>
                                     <h2>{{ numProyectos }}</h2>
-                                    <button class="btn" style="background-color: #117c5d; border: none;" (click)="redirectToRegistrarProyecto()">+
-                                        Crear</button>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -39,17 +42,31 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Proyectos</h3>
+                        <h3>Resumen de Actividades</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4" *ngFor="let proyecto of proyectos">
-                                <div class="project-list" (click)="redirectToProyectoDetalle(proyecto)">
-                                    <p>{{ proyecto.nombreCorto }}</p>
+                            <div class="col-md-3">
+                                <div class="project-box">
+                                    <p>Actividades</p>
+                                    <h2>{{ numProyectos }}</h2>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="status-box">
+                                    <p>Activas</p>
+                                    <h2>{{ numProyectosActivos }}</h2>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="status-box">
+                                    <p>Completadas</p>
+                                    <h2>{{ numProyectosCompletados }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +74,6 @@
                 </div>
             </div>
         </div>
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -83,14 +98,14 @@
                                     </tbody>
                                 </table>
                                 <!-- Formulario para agregar lider -->
-                                <div>
+                                <div *ngIf="mostrarTabla">
                                     <h5>Agregar lider</h5>
                                     <form (ngSubmit)="agregarLider()">
                                         <label for="nombreCompleto" style="margin: 10px;">Nombre completo:</label>
 
                                         <input type="string" id="nombre" [(ngModel)]="nuevoLider.nombre"
                                             name="nombre" required>
-                                        <button class="btn" style="background-color: #117c5d; border: none; margin-left: 10px;" type="submit">Agregar
+                                        <button class="btn btn-primary" style="background-color: #117c5d; border: none; margin-bottom: 10px; margin-left: 10px;" type="submit">Agregar
                                             lider</button>
                                     </form>
                                 </div>

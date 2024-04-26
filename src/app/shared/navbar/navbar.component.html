@@ -13,12 +13,6 @@
                 <li class="nav-item" *ngIf="isHome()">
                     <a routerLink='/signup' class="btn btn-danger btn-round">Iniciar sesión</a>
                 </li>
-                <li class="nav-item" *ngIf="!isHome2()">
-                    <a *ngIf="!isDocumentation()" (click)="logout()" class="nav-link">Salir</a>
-                </li>
-                <li class="nav-item" *ngIf="isDocumentation()">
-                    <a href="https://github.com/creativetimofficial/paper-kit-2-angular/issues?ref=pk2-free-local" target="_blank" class="nav-link">Have an issue</a>
-                </li>
             </ul>
         </div>
     </div>

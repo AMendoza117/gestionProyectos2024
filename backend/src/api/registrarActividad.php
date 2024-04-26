@@ -8,17 +8,19 @@ $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
 
 $folio = $request->folio;
-$nombreProyecto = $request->nombreActividad;
+$nombreActividad = $request->nombreActividad;
 $nombreCorto = $request->nombreCorto;
 $descripcion = $request->descripcion;
 $fechaInicio = $request->fechaInicio;
 $fechaTermino = $request->fechaTermino;
 $idResponsable = $request->idResponsable;
+$idProyecto = $request->idProyecto;
 
 // Insertar el nuevo proyecto en la base de datos
-$consulta = "INSERT INTO Actividades (folio, nombreActividad, nombreCorto, descripcion, fechaInicio, fechaTermino, idResponsable, estadoActividad)
-            VALUES ('$folio', '$nombreActividad', '$nombreCorto', '$descripcion', '$fechaInicio', '$fechaTermino', $idResponsable, 'Activo')";
+$consulta = "INSERT INTO Actividades (folio,nombreActividad, nombreCorto, descripcion, fechaInicio, fechaTermino, idResponsable, estadoActividad, idProyecto)
+            VALUES ('$folio', '$nombreActividad', '$nombreCorto', '$descripcion', '$fechaInicio', '$fechaTermino', $idResponsable, 'Activa', $idProyecto)";
 
+echo $consulta;
 
 if (mysqli_query($con, $consulta)) {
   echo json_encode(['success' => true]);

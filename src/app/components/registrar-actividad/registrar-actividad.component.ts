@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { ApiService } from './../../api.service';
 import { Responsable } from 'app/Models/responsable.model';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'app/services/auth.service';
+import { VerProyecto } from 'app/Models/VerProyecto.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-actividad',
@@ -10,28 +14,46 @@ import { Router } from '@angular/router';
   styleUrls: ['./registrar-actividad.component.css']
 })
 export class RegistrarActividadComponent implements OnInit {
+  mostrarTabla = false;
+  verProyecto: VerProyecto;
+  rol = null;
+  idProyecto: number;
   lastConsecutivo: string;
-  proyectoForm: FormGroup;
+  actividadForm: FormGroup;
   responsables: Responsable[];
   documentoForm = new FormGroup({
     fileSource: new FormControl('', [Validators.required]),
   });
 
-  constructor(private apiService: ApiService, private fb: FormBuilder, private router: Router) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService, private fb: FormBuilder, private router: Router, private toastr: ToastrService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.proyectoForm = this.fb.group({
-      nombreProyecto: ['', [Validators.required]],
+    const userRole = localStorage.getItem('userRole');
+
+    // Verifica el rol del usuario para determinar si se muestra la tabla
+    if (userRole === 'admin' || userRole === 'lider') {
+      this.mostrarTabla = true;
+    }
+
+    this.actividadForm = this.fb.group({
+      nombreActividad: ['', [Validators.required]],
       nombreCorto: ['', [Validators.required, Validators.maxLength(10)]],
       descripcion: ['', [Validators.required]],
       fechaInicio: ['', [Validators.required]],
       fechaTermino: ['', [Validators.required]],
       idResponsable: [null, [Validators.required]],
-      costo: ['', [Validators.required, Validators.min(0)]],
+      idProyecto: [this.idProyecto]
     });
 
     this.loadResponsables();
     this.getLastConsecutivo();
+
+    this.route.paramMap.subscribe((params) => {
+      this.idProyecto = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
+      if (!isNaN(this.idProyecto)) {
+        this.loadProyecto(this.idProyecto);
+      }
+    });
   }
 
   loadResponsables() {
@@ -41,6 +63,17 @@ export class RegistrarActividadComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar responsables:', error);
+      }
+    );
+  }
+
+  loadProyecto(idProyecto: number) {
+    this.apiService.getProyectoDetallado(idProyecto).subscribe(
+      (verProyecto: VerProyecto) => {
+        this.verProyecto = verProyecto;
+      },
+      (error) => {
+        console.error('Error al cargar proyecto:', error);
       }
     );
   }
@@ -73,85 +106,45 @@ export class RegistrarActividadComponent implements OnInit {
     const formattedNextNumber = nextNumber.toString().padStart(3, '0');
     return `${year}${month}-${nombreCorto}-${formattedNextNumber}`;
   }
-  
 
-  onSubmit() {
-    if (this.proyectoForm.valid) {
-      const nombreCorto = this.proyectoForm.value.nombreCorto;
-      const folio = this.generateFolio(nombreCorto);
-
-      const proyectoData = {
-        folio,
-        ...this.proyectoForm.value
-      };
-
-
-      this.apiService.registrarProyecto(proyectoData).subscribe(
-        (response) => {
-/*          if (response && response.success) {
-
-            // Luego de registrar el proyecto, registrar el documento si hay uno adjunto
-            const documento = this.documentoForm.get('fileSource').value;
-
-            if (documento) {
-              this.apiService.registrarDocumento(folio, documento).subscribe(
-                (documentoResponse) => {
-                  if (documentoResponse && documentoResponse.success) {
-                    console.log('Documento registrado con éxito.');
-                  } else {
-                    console.error('Error al registrar documento.');
-                  }
-                },
-                (documentoError) => {
-                  console.error('Error en la solicitud para registrar documento: ', documentoError);
-                }
-              );
+    onSubmit() {
+        if (this.actividadForm.valid) {
+          const nombreCorto = this.actividadForm.value.nombreCorto;
+          const folio = this.generateFolio(nombreCorto);
+          console.log(this.idProyecto);
+          // Incluir el idProyecto en los datos de la actividad
+          const actividadData = {
+            folio,
+            ...this.actividadForm.value,
+            idProyecto: this.idProyecto, // Aquí incluimos el idProyecto obtenido del localStorage
+            
+          };
+          this.apiService.registrarActividad(actividadData).subscribe(
+            (response) => {
+              if (response.success) {
+                this.toastr.success('Actividad creada con éxito', 'Éxito');
+                this.actividadForm.reset();  
+                this.router.navigate(['/actividades']); // Redirigir a la lista de actividades después del registro exitoso
+              } else {
+                this.toastr.error('Error al registrar actividad', 'Error');
+                console.error('Error al registrar actividad:', response.error);
+              }
+            },
+            (error) => {
+              console.error('Error en la solicitud para registrar actividad: ', error);
+              this.toastr.success('Actividad creada con éxito', 'Éxito');
+              this.actividadForm.reset();  
+              this.router.navigate(['/actividades']);
             }
-
-            this.documentoForm.reset(); // Esto limpiará el formulario del documento
-            this.proyectoForm.reset();  // Limpiar el formulario del proyecto
-            window.location.reload();
-          } else {
-            console.error('Error al registrar proyecto.');
-          }*/
-        },
-        (error) => {
-          console.error('Error en la solicitud para registrar proyecto: ', error);
+          );
+        } else {
+          console.log('Formulario de actividad no válido. No se puede registrar.');
+          this.toastr.error('Formulario de actividad no válido. No se puede registrar', 'Error');
         }
-      );
-    } else {
-      // Si el formulario de proyecto no es válido, registrar solo el proyecto sin adjuntar documento
-      console.log('Formulario de proyecto no válido. Registrando solo el proyecto.');
+      }
 
-      const nombreCorto = this.proyectoForm.value.nombreCorto;
-      const folio = this.generateFolio(nombreCorto);
-
-      const proyectoData = {
-        folio,
-        ...this.proyectoForm.value
-      };
-
-      this.apiService.registrarProyecto(proyectoData).subscribe(
-        (response) => {
-          if (response && response.success) {
-            this.proyectoForm.reset();  
-            window.location.reload();
-          } else {
-            console.error('Error al registrar proyecto.');
-          }
-        },
-        (error) => {
-          console.error('Error en la solicitud para registrar proyecto: ', error);
-        }
-      );
-    }
-  }
 
   redirectToHome() {
     this.router.navigate(['/dashboard']);
   }
-
-
-
-
 }

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -15,6 +15,13 @@ import { GetTokenComponent } from './components/recuperarContraseña/getToken/ge
 import { ActualizarContraseñaComponent } from './components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 import { Login2FAComponent } from './examples/login2FA/login2FA.component';
 import { NotificationComponent } from './components/notification/notification.component';
+import { RegistrarActividadComponent } from './components/registrar-actividad/registrar-actividad.component';
+import { VerActividadComponent } from './components/ver-actividad/ver-actividad.component';
+import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { MapaComponent } from './components/mapa/mapa.component';
+import { EditarPerfilComponent } from './components/miPerfil/editar-perfil.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -22,14 +29,21 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'landing', component: LandingComponent },
   { path: 'nucleoicons', component: NucleoiconsComponent },
-  { path: 'ver-proyectop', component: NotificationComponent},
+  { path: 'ver-proyectop', component: NotificationComponent },
 
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
-  { path: 'registrar-proyecto', component: RegistrarProyectoComponent, canActivate: [AuthGuardService]},
-  { path: 'ver-proyecto/:id', component: VerProyectoComponent, canActivate: [AuthGuardService]},
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'registrar-proyecto', component: RegistrarProyectoComponent},
+  { path: 'ver-proyecto/:id', component: VerProyectoComponent},
   { path: 'recuperar-contrasena', component: GetTokenComponent},
   { path: 'actualizar-contrasena', component: ActualizarContraseñaComponent},
-  { path: 'login2FA', component: Login2FAComponent}
+  { path: 'login2FA', component: Login2FAComponent},
+  { path: 'mapa', component: MapaComponent},
+  { path: 'registrar-actividad/:id', component: RegistrarActividadComponent},
+  { path: 'ver-actividad', component: VerActividadComponent},
+  { path: 'proyectos', component: ProyectosComponent},
+  { path: 'gusuarios', component: RegistrarUsuarioComponent},
+  { path: 'mi-perfil', component: EditarPerfilComponent}
+
 ];
 
 @NgModule({

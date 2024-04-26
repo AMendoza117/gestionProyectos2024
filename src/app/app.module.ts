@@ -23,6 +23,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { ActualizarContraseñaComponent } from './components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 import { GetTokenComponent } from './components/recuperarContraseña/getToken/getToken.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { RegistrarActividadComponent } from './components/registrar-actividad/registrar-actividad.component';
+import { VerActividadComponent } from './components/ver-actividad/ver-actividad.component';
+import { RegistrarUsuarioComponent } from './components/registrar-usuario/registrar-usuario.component';
+import { ProyectosComponent } from './components/proyectos/proyectos.component';
+import { MapaComponent } from './components/mapa/mapa.component';
+import { EditarPerfilComponent } from './components/miPerfil/editar-perfil.component';
+import { NavbarComponent2 } from './shared/navbar2/navbar.component';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +45,15 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     Error403Component,
     //ActualizarContraseñaComponent,
     //GetTokenComponent
+    RegistrarActividadComponent,
+    VerActividadComponent,
+    RegistrarUsuarioComponent,
+    MapaComponent,
+    ProyectosComponent,
+    EditarPerfilComponent,
+    NavbarComponent2
+
+
   ],
   imports: [
     BrowserModule,

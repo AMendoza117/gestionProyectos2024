@@ -19,7 +19,7 @@ export class AuthGuardService {
       } else {
         // El usuario no está autenticado, redirigir al inicio de sesión
         this.toastr.error('No estas autenticado', 'Error');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/signup']);
         return false;
       }
   }

@@ -1,21 +1,27 @@
+<br>
+<br>
+<br>
+<br>
 <nav aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a routerLink="dashboard">Inicio</a></li>
-    <li class="breadcrumb-item"><a routerLink="/registrar-proyecto">Registrar Actividad</a></li>
-  </ol>
-</nav>
-<div class="main-content">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/ver-proyecto/:id">Detalles Proyecto</a></li>
+      <li class="breadcrumb-item"><a routerLink="/registrar-actividad/:id">Registrar Actividad</a></li>
+    </ol>
+  </nav>
+
+<div class="main-content" *ngIf="mostrarTabla">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <h3>Registro de Actividades</h3>
+            <h3 style="align-items: center;">Registro de Actividades</h3>
           </div>
 
           <div class="container">
+            <form [formGroup]="actividadForm" (ngSubmit)="onSubmit()" style="padding: 20px;">
 
-            <form [formGroup]="proyectoForm" (ngSubmit)="onSubmit()">
               <!-- Nombre del Proyecto -->
               <div class="form-group">
                 <label for="nombreActividad">Nombre de la actividad:</label>
@@ -52,19 +58,7 @@
                   </option>
                 </select>
               </div>
-
-
-              <!-- Adjuntar Documentos (solo PDF) -->
-              <div class="form-group" style="margin: 20px;">
-                <label for="file">Adjuntar PDF:</label>
-                <input type="file" id="file" formControlName="fileSource" (change)="onFileChange($event)" />
-                <div *ngIf="documentoForm.get('fileSource').hasError('required') && documentoForm.get('fileSource').touched"
-                  class="text-danger">
-                  *Sólo puede subir un archivo, si desea añadir más archivos lo podrá hacer más adelante
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-primary" style="margin-bottom: 10px;">Registrar Actividad</button>
+              <button type="submit" class="btn" style="background-color: #117c5d; border: none; margin-bottom: 10px;">Registrar Actividad</button>
             </form>
           </div>
 
@@ -74,4 +68,3 @@
     </div>
   </div>
 </div>
-
