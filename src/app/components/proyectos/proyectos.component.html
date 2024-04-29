@@ -22,8 +22,8 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4" *ngFor="let proyecto of proyectos">
-                                <div class="project-list" (click)="redirectToProyectoDetalle(proyecto)">
-                                    <p>{{ proyecto.nombreCorto }}</p>
+                                <div class="project-list" [style.background-color]="obtenerColorFondo(proyecto)" (click)="redirectToProyectoDetalle(proyecto)">
+                                    <p [ngStyle]="{ 'color': obtenerColorTexto(proyecto.estadoProyecto) }">{{ proyecto.nombreCorto }}</p>
                                 </div>
                             </div>
                             <button class="btn btn-primary" style="background-color: #117c5d;" (click)="redirectToRegistrarProyecto()">+

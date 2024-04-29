@@ -99,6 +99,34 @@ export class ProyectosComponent implements OnInit {
     this.isModalOpen = true;
   }
 
+  obtenerColorFondo(proyecto: Proyecto): string {
+    // Lógica para determinar el color en función del estado de la actividad
+    switch (proyecto.estadoProyecto) {
+      case 'En progreso':
+        return '#e9ecef'; // Color gris por defecto
+      case 'Completada':
+        return '#28a745'; // Color verde cuando la actividad está completada
+      case 'Cancelada':
+        return '#dc3545'; // Color rojo cuando la actividad está cancelada
+      default:
+        return '#e9ecef'; // Color gris por defecto
+    }
+  }
+  
+  obtenerColorTexto(estadoProyecto: string): string {
+    // Determina el color del texto en función del estado de la actividad
+    switch (estadoProyecto) {
+      case 'En progreso':
+        return '#000'; // Color negro para el texto cuando la actividad está en progreso
+      case 'Completada':
+        return '#fff'; // Color blanco para el texto cuando la actividad está completada
+      case 'Cancelada':
+        return '#fff'; // Color blanco para el texto cuando la actividad está cancelada
+      default:
+        return '#000'; // Color negro por defecto
+    }
+  }
+
 }
 
 

@@ -4,10 +4,10 @@
 <br>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
-      <li class="breadcrumb-item"><a routerLink="/ver-actividad">Detalles Actividad</a></li>
+        <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+        <li class="breadcrumb-item"><a routerLink="/ver-actividad">Detalles Actividad</a></li>
     </ol>
-  </nav>
+</nav>
 
 <!-- ver-proyecto.component.html -->
 <div class="main-content">
@@ -49,16 +49,20 @@
                                         <td>{{ verActividad.fechaTermino }}</td>
                                     </tr>
                                     <tr>
-                                        <td>Estado de ña Actividad</td>
+                                        <td>Estado de la Actividad</td>
                                         <td>{{ verActividad.estadoActividad }}</td>
                                     </tr>
                                     <tr>
                                         <td>Encargado de la Actividad</td>
-                                        <td>{{ verActividad.nombreLiderProyecto }}</td>
+                                        <td>{{ verActividad.nombre }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <button class="btn btn-primary" (click)="terminado(idActividad)">Marcar como terminada</button>
+                            <button class="btn btn-primary" style="background-color: #117c5d;" 
+                                (click)="Acterminada(verActividad.idActividad)"
+                                [disabled]="verActividad.estadoActividad === 'Completada'">
+                                {{ verActividad.estadoActividad === 'Completada' ? 'Actividad terminada' : 'Marcar como terminada' }}
+                            </button>                          
                         </div>
                     </div>
                 </div>
@@ -92,3 +96,4 @@
 </div>
 <app-mapa [isOpen]="isModalOpen"></app-mapa>
 <button (click)="openModal()">Mostrar Mapa del Sitio</button>
+

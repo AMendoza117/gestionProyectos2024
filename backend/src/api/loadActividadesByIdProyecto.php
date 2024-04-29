@@ -7,9 +7,11 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 // Incluir el archivo de conexión a la base de datos
 include 'database.php';
 
+// Obtener el valor de idProyecto
+$idProyecto = $_GET['idProyecto'];
 
 // Consulta para obtener todos las actividades
-$consultaActividades = "SELECT idActividad, folio, nombreCorto, estadoActividad FROM Actividades";
+$consultaActividades = "SELECT idActividad, folio, nombreCorto, estadoActividad FROM Actividades WHERE idProyecto = $idProyecto";
 $resultadoActividades = mysqli_query($con, $consultaActividades);
 
 if ($resultadoActividades) {
@@ -24,9 +26,8 @@ if ($resultadoActividades) {
     echo json_encode($actividades);
 } else {
     // Manejo de errores en caso de fallo en la consulta
-    echo json_encode(['error' => 'Error al obtener actividades desde la base de datos.']);
+    echo json_encode(['error' => 'Error en la consulta: '. mysqli_error($con)]);
 }
 
 // Cerrar conexión a la base de datos
 mysqli_close($con);
-?>

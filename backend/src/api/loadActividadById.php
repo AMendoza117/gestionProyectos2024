@@ -6,10 +6,10 @@ include 'database.php';
 $idActividad = mysqli_real_escape_string($con, $_GET['idActividad']);
 
 // Consulta para obtener la información detallada del proyecto
-$consultaActividadDetallada = "SELECT a.*, r.nombre AS nombreLiderProyecto
+$consultaActividadDetallada = "SELECT *
                               FROM Actividades a
-                              LEFT JOIN LideresProyecto r ON a.idResponsable = r.idLiderProyecto
-                              WHERE a.idActividad = $idActividad";
+                              LEFT JOIN LideresProyecto r ON a.idResponsable = r.idLiderProyecto 
+                              WHERE idActividad = $idActividad";
 
 $resultadoActividadDetallada = mysqli_query($con, $consultaActividadDetallada);
 
@@ -28,45 +28,8 @@ if ($resultadoActividadDetallada) {
         "idResponsable" => $row["idResponsable"],
         "estadoActividad" => $row["estadoActividad"],
         "idLiderProyecto" => $row["idLiderProyecto"],
-    );
-
-    // Consulta para obtener los PDFs relacionados con la actividad
-    $consultaPdfs = "SELECT rutaDocumento FROM DocumentosActividad WHERE idActividad = $idActividad";
-    $resultadoPdfs = mysqli_query($con, $consultaPdfs);
-
-    if ($resultadoPdfs) {
-        $pdfs = array();
-        while ($rowPdf = mysqli_fetch_assoc($resultadoPdfs)) {
-            $pdfs[] = $rowPdf["rutaDocumento"];
-        }
-        $verActividad["pdfs"] = $pdfs;
-    } else {
-        $error_message = mysqli_error($con);
-        echo json_encode(['error' => "Error al obtener los PDFs desde la base de datos: $error_message"]);
-        exit;
-    }
-
-    // Consulta para obtener los Stakeholders relacionados con la actividad
-    $consultaStakeholders = "SELECT * FROM Stakeholders WHERE idActividad = $idActividad";
-    $resultadoStakeholders = mysqli_query($con, $consultaStakeholders);
-
-    if ($resultadoStakeholders) {
-        $stakeholders = array();
-        while ($rowStakeholder = mysqli_fetch_assoc($resultadoStakeholders)) {
-            $stakeholder = array(
-                "id" => $rowStakeholder["idStakeholder"],
-                "nombreCompleto" => $rowStakeholder["nombreCompleto"],
-                "correoElectronico" => $rowStakeholder["correoElectronico"],
-                "telefono" => $rowStakeholder["telefono"]
-            );
-            $stakeholders[] = $stakeholder;
-        }
-        $verActividad["stakeholders"] = $stakeholders;
-    } else {
-        $error_message = mysqli_error($con);
-        echo json_encode(['error' => "Error al obtener los Stakeholders desde la base de datos: $error_message"]);
-        exit;
-    }
+        "nombre" => $row["nombre"],
+    );  
 
     // Imprimir resultado como JSON
     echo json_encode($verActividad);
@@ -77,4 +40,3 @@ if ($resultadoActividadDetallada) {
 
 // Cerrar conexión a la base de datos
 mysqli_close($con);
-?>

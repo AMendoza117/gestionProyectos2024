@@ -7,5 +7,6 @@ export interface Actividad {
     estadoActividad: string;
     idResponsable: number;
     idProyecto: number;
+    nombre: string;
   }
   

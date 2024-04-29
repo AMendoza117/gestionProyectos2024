@@ -52,7 +52,6 @@ h5, .h5 {
 h6, .h6 {
   font-size: 0.9em;
   font-weight: 600;
-  text-transform: uppercase;
   line-height: 1.5em;
 }
 
@@ -98,9 +97,7 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
   text-decoration: none;
 }
 
-.title-uppercase {
-  text-transform: uppercase;
-}
+
 
 .description {
   color: #9A9A9A;
@@ -345,7 +342,6 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
   padding: 0.5rem 18px;
   line-height: 1.75;
   cursor: pointer;
-  text-transform: uppercase;
   background-color: #66615B;
   border-color: #66615B;
   color: #FFFFFF;
@@ -1368,7 +1364,6 @@ textarea.form-control {
   color: #FFFFFF;
   font-weight: 500;
   font-size: 0.75em;
-  text-transform: uppercase;
   display: inline-block;
   margin-bottom: 3px;
   line-height: 17px;
@@ -2043,7 +2038,6 @@ textarea.form-control {
   padding: 20px 15px;
   font-size: 14px;
   color: #66615B;
-  text-transform: uppercase;
 }
 .navbar .nav-link i {
   font-size: 16px;
@@ -2057,7 +2051,6 @@ textarea.form-control {
 .navbar .nav-link p {
   margin: 0px 0px;
   color: #9A9A9A !important;
-  text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;
   line-height: 1.5em;
@@ -2072,7 +2065,6 @@ textarea.form-control {
   padding: 10px 15px;
   opacity: .8;
   font-size: 12px;
-  text-transform: uppercase;
   font-weight: 600;
   color: #66615B;
 }
@@ -2708,7 +2700,6 @@ textarea.form-control {
   line-height: 1.6;
   opacity: .8;
   font-size: 12px;
-  text-transform: uppercase;
   font-weight: 600;
 }
 
@@ -2764,7 +2755,6 @@ textarea.form-control {
   color: #403D39;
 }
 .footer .links ul.uppercase-links {
-  text-transform: uppercase;
 }
 .footer .links ul.stacked-links {
   margin-top: 10px;
@@ -3975,7 +3965,6 @@ textarea.form-control {
 }
 .nav-text > li > a {
   font-size: 0.9em;
-  text-transform: uppercase;
   padding: 3px 0;
   text-align: left;
   font-weight: 500;
@@ -4901,7 +4890,6 @@ textarea.form-control {
   .navbar-collapse .navbar-nav > .nav-item > .nav-link {
     margin: 0px 0px;
     color: #9A9A9A !important;
-    text-transform: uppercase;
     font-weight: 600;
     font-size: 12px;
     line-height: 1.5em;
@@ -5475,7 +5463,6 @@ textarea.form-control {
   text-align: center;
   border-bottom: 1px solid #E3E3E3;
   font-size: 12px;
-  text-transform: uppercase;
   color: #9A9A9A;
   font-weight: 400;
   padding-bottom: 5px;

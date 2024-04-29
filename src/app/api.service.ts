@@ -89,8 +89,16 @@ export class ApiService {
     return this.http.get<Proyecto[]>(url, { headers });
   }
 
+  
   loadActividades(): Observable<Actividad[]> {
     const url = `${this.apiUrl}/api/loadActividades.php`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.get<Actividad[]>(url, { headers });
+  }
+
+  loadActividades2(idProyecto: number): Observable<Actividad[]> {
+    const url = `${this.apiUrl}/api/loadActividadesByIdProyecto.php?idProyecto=${idProyecto}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.get<Actividad[]>(url, { headers });
@@ -104,7 +112,7 @@ export class ApiService {
   }
 
   getActividadDetallada(idActividad: number): Observable<VerActividad> {
-    const url = `${this.apiUrl}/api/loadById.php?idActividad=${idActividad}`;
+    const url = `${this.apiUrl}/api/loadActividadById.php?idActividad=${idActividad}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.get<VerActividad>(url, { headers });

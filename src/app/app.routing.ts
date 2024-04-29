@@ -30,19 +30,18 @@ const routes: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'nucleoicons', component: NucleoiconsComponent },
   { path: 'ver-proyectop', component: NotificationComponent },
-  { path: 'dashboard', component: DashboardComponent},
-  { path: 'registrar-proyecto', component: RegistrarProyectoComponent},
-  { path: 'ver-proyecto/:id', component: VerProyectoComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
+  { path: 'registrar-proyecto', component: RegistrarProyectoComponent, canActivate: [AuthGuardService]},
+  { path: 'ver-proyecto/:id', component: VerProyectoComponent, canActivate: [AuthGuardService]},
   { path: 'recuperar-contrasena', component: GetTokenComponent},
-  { path: 'actualizar-contrasena', component: ActualizarContraseñaComponent},
+  { path: 'actualizar-contrasena', component: ActualizarContraseñaComponent, canActivate: [AuthGuardService]},
   { path: 'login2FA', component: Login2FAComponent},
   { path: 'mapa', component: MapaComponent},
-  { path: 'registrar-actividad/:id', component: RegistrarActividadComponent},
-  { path: 'ver-actividad/:id', component: VerActividadComponent},
-  { path: 'proyectos', component: ProyectosComponent},
-  { path: 'gusuarios', component: RegistrarUsuarioComponent},
-  { path: 'mi-perfil', component: EditarPerfilComponent }
-
+  { path: 'registrar-actividad/:id', component: RegistrarActividadComponent,  canActivate: [AuthGuardService]},
+  { path: 'ver-actividad/:id', component: VerActividadComponent,  canActivate: [AuthGuardService]},
+  { path: 'proyectos', component: ProyectosComponent,  canActivate: [AuthGuardService]},
+  { path: 'gusuarios', component: RegistrarUsuarioComponent,  canActivate: [AuthGuardService]},
+  { path: 'mi-perfil', component: EditarPerfilComponent,  canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
