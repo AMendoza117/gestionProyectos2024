@@ -1,12 +1,7 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa del Sitio</title>
-  </head>
-  <body>
-    <button id="showSiteMap" style="margin-top: 400px;">Mostrar Mapa del Sitio</button>
-    <div id="siteMap" class="hidden">
-      <!-- Contenido del mapa del sitio -->
+  <div class="modal" [style.display]="isOpen ? 'block' : 'none'">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>Mapa del Sitio</h2>
       <ul>
         <li><a routerLink="/dashboard" class="nav-link">Inicio</a></li>
         <li><a routerLink="/proyectos" class="nav-link">Proyectos</a></li>
@@ -20,8 +15,12 @@
             <li><a routerLink="/agregar-actividad" class="nav-link">Agregar Actividad</a></li>
             <li><a routerLink="/ver-actividad" class="nav-link">Detalle Actividad</a></li>
           </ul>
-        <li><a routerLink="/recuperar-contrasena" class="nav-link">Recuperar Contraseña</a></li>
+        <li><a routerLink="/registrar-proyecto" class="nav-link">Mi perfil</a></li>
+        <ul>
+          <li><a routerLink="/recuperar-contrasena" class="nav-link">Recuperar Contraseña</a></li>
         <li><a routerLink="/actualizar-contrasena" class="nav-link">Actualizar Contraseña</a></li>
         </ul>
+        </ul>
     </div>
-  </body>
+  </div>
+  

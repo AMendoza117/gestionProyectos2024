@@ -11,6 +11,7 @@ import { PasswordValidator } from 'app/services/password.validator';
 })
 export class EditarPerfilComponent implements OnInit {
   perfilForm: FormGroup;
+  isModalOpen: boolean = false;
   username: string | null = null;
 
   constructor(private apiService: ApiService, private fb: FormBuilder, private toastr: ToastrService) { }
@@ -99,6 +100,10 @@ export class EditarPerfilComponent implements OnInit {
     } else {
       this.toastr.error('Por favor completa todos los campos de contraseña', 'Error');
     }
+}
+
+openModal() {
+  this.isModalOpen = true;
 }
 
 }

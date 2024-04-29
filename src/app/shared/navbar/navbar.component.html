@@ -11,6 +11,9 @@
         <div class="navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item" *ngIf="isHome()">
+                    <a (click)="scrollToSection()" class="btn btn-danger btn-round">Conoce nuestos paquetes</a>
+                </li>
+                <li class="nav-item" *ngIf="isHome()">
                     <a routerLink='/signup' class="btn btn-danger btn-round">Iniciar sesión</a>
                 </li>
             </ul>

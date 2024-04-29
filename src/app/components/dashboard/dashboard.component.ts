@@ -14,6 +14,7 @@ import { Actividad } from 'app/Models/Actividad.model';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  isModalOpen: boolean = false;
   proyectos: Proyecto[];
   mostrarTabla = true;
   lideresConProyectos: LiderConProyectos[];
@@ -121,6 +122,10 @@ export class DashboardComponent implements OnInit {
         console.error('Error en la solicitud para agregar lider: ', error);
       }
     )
+  }
+  
+  openModal() {
+    this.isModalOpen = true;
   }
 
 }

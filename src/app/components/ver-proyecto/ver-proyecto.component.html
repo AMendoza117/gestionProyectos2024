@@ -5,6 +5,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/proyectos">Proyectos</a></li>
       <li class="breadcrumb-item"><a routerLink="/ver-proyecto/:id">Detalles Proyecto</a></li>
     </ol>
   </nav>
@@ -206,7 +207,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4" *ngFor="let actividad of actividad">
-                                    <div class="project-list" (click)="redirectToActividadDetalle(actividad)">
+                                    <div class="project-list" (click)="redirectToActividadDetallada(actividad)">
                                         <p>{{ actividad.nombreCorto }}</p>
                                     </div>
                                 </div>
@@ -218,3 +219,6 @@
                 </div>
             </div>
 </div>
+
+<app-mapa [isOpen]="isModalOpen"></app-mapa>
+<button (click)="openModal()">Mostrar Mapa del Sitio</button>

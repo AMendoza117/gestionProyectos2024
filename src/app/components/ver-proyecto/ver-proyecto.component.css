@@ -1,3 +1,22 @@
+/* Estilos para el botón de abrir modal */
+.open-modal-button {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 9999; /* Asegura que esté por encima del contenido */
+}
+
+.open-modal-button:hover {
+  background-color: #0056b3;
+}
+
 .main-content {
     padding: 20px;
   }

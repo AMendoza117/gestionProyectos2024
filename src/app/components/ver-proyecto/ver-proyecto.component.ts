@@ -18,6 +18,7 @@ import { Actividad } from 'app/Models/Actividad.model';
   styleUrls: ['./ver-proyecto.component.css']
 })
 export class VerProyectoComponent implements OnInit {
+  isModalOpen: boolean = false;
   actividades: Actividad[];
   actividad: Actividad;
   proyectos: Proyecto;
@@ -193,6 +194,10 @@ redirectToActividad(){
     }
   }
 
+  openModal() {
+    this.isModalOpen = true;
+  }
+  
   terminado(idProyecto: number): void {
     this.apiService.terminado(idProyecto).subscribe(
       (response) => {
@@ -239,6 +244,5 @@ redirectToActividad(){
   redirectToRegistrarActividad() {
     this.router.navigate(['/registrar-actividad']);
   }
-  
 
 }

@@ -12,6 +12,7 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./registrar-proyecto.component.css']
 })
 export class RegistrarProyectoComponent implements OnInit {
+  isModalOpen: boolean = false;
   mostrarTabla = true;
   lastConsecutivo: string;
   proyectoForm: FormGroup;
@@ -164,6 +165,10 @@ export class RegistrarProyectoComponent implements OnInit {
         }
       );
     }
+  }
+
+  openModal() {
+    this.isModalOpen = true;
   }
 
 }

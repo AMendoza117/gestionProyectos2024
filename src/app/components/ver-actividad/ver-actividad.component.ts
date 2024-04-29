@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./ver-actividad.component.css']
 })
 export class VerActividadComponent implements OnInit {
+  isModalOpen: boolean = false;
   mostrarTabla = false;
   verActividad: VerActividad;
   idActividad: number;
@@ -121,6 +122,10 @@ export class VerActividadComponent implements OnInit {
     // Extrae el nombre del archivo de la ruta completa
     const parts = pdf.split('/');
     return parts[parts.length - 1];
+  }
+
+  openModal() {
+    this.isModalOpen = true;
   }
 
 }

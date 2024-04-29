@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./registrar-actividad.component.css']
 })
 export class RegistrarActividadComponent implements OnInit {
+  isModalOpen: boolean = false;
   mostrarTabla = true;
   verProyecto: VerProyecto;
   rol = null;
@@ -143,8 +144,12 @@ export class RegistrarActividadComponent implements OnInit {
         }
       }
 
-
   redirectToHome() {
     this.router.navigate(['/dashboard']);
   }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
 }

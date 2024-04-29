@@ -10,6 +10,7 @@ import { Usuario } from 'app/Models/usuario.model';
   styleUrls: ['./registrar-usuario.component.css']
 })
 export class RegistrarUsuarioComponent implements OnInit {
+  isModalOpen: boolean = false;
   proyectoForm: FormGroup;
   usuarios: Usuario[] = []; // Variable para almacenar la lista de usuarios
   mostrarTabla = true;
@@ -79,5 +80,9 @@ export class RegistrarUsuarioComponent implements OnInit {
     } else {
       this.toastr.error('Hay algo mal con tu solicitud', 'Error');
     }
+  }
+
+  openModal() {
+    this.isModalOpen = true;
   }
 }

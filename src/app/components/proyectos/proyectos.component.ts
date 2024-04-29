@@ -13,6 +13,7 @@ import { ApiService } from 'app/api.service';
   styleUrls: ['./proyectos.component.css']
 })
 export class ProyectosComponent implements OnInit {
+  isModalOpen: boolean = false;
   proyectos: Proyecto[];
   lideresConProyectos: LiderConProyectos[];
   numProyectos: number;
@@ -92,6 +93,10 @@ export class ProyectosComponent implements OnInit {
         console.error('Error en la solicitud para agregar lider: ', error);
       }
     )
+  }
+
+  openModal() {
+    this.isModalOpen = true;
   }
 
 }

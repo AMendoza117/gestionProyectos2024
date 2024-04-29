@@ -90,4 +90,21 @@ export class NavbarComponent implements OnInit {
     logout(): void {
         this.authService.logout();
     }
+
+    scrollToSection() {
+        // Obtener el identificador de la sección
+        const sectionId = "planes";
+        
+        // Encontrar la posición de la sección en la página
+        const section = document.getElementById(sectionId);
+        const sectionPosition = section.offsetTop;
+        
+        // Hacer scroll hasta la sección
+        window.scrollTo({
+            top: sectionPosition,
+            behavior: 'smooth' // Para un scroll suave
+        });
+
+        console.log('hola')
+    }
 }

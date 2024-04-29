@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Proyecto } from 'app/Models/Proyecto.model';
 import { LiderConProyectos } from 'app/Models/liderConProyectos.model';
@@ -13,6 +13,7 @@ import { ApiService } from 'app/api.service';
   styleUrls: ['./mapa.component.css']
 })
 export class MapaComponent implements OnInit {
+  @Input() isOpen: boolean = false;
   proyectos: Proyecto[];
   lideresConProyectos: LiderConProyectos[];
   numProyectos: number;
@@ -36,6 +37,10 @@ export class MapaComponent implements OnInit {
         });
       }
     });
+  }
+
+  closeModal() {
+    this.isOpen = false;
   }
 
 }
