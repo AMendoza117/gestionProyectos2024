@@ -10,6 +10,7 @@ import { AuthService } from 'app/services/auth.service';
 export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
+    searchTerm: string = '';
 
     constructor(public location: Location, private element : ElementRef, private authService: AuthService) {
         this.sidebarVisible = false;
@@ -90,4 +91,19 @@ export class NavbarComponent implements OnInit {
     logout(): void {
         this.authService.logout();
     }
+
+    search() {
+        const searchText = this.searchTerm.trim().toLowerCase();
+        if (!searchText) return;
+    
+        const elements = document.querySelectorAll('body *');
+    
+        elements.forEach((element: HTMLElement) => {
+          const text = element.innerText.toLowerCase();
+          if (text.includes(searchText)) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+          }
+        });
+      }
 }
