@@ -43,11 +43,12 @@ export class VerActividadComponent implements OnInit {
     }
 
     this.route.paramMap.subscribe((params) => {
-      this.idProyecto = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
-      if (!isNaN(this.idProyecto)) {
-        this.loadActividad(this.idProyecto);
+      this.idActividad = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
+      if (!isNaN(this.idActividad)) {
+        this.loadActividad(this.idActividad);
       }
     });
+
   }    
 
   loadActividad(idActividad: number) {
@@ -82,7 +83,7 @@ export class VerActividadComponent implements OnInit {
   }
 
   Acterminada(idActividad: number): void {
-    this.apiService.terminado(idActividad).subscribe(
+    this.apiService.terminada(idActividad).subscribe(
       (response) => {
         this.loadActividad(this.idActividad);
       },

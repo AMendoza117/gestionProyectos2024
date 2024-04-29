@@ -5,6 +5,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/Proyectos">Proyectos</a></li>
       <li class="breadcrumb-item"><a routerLink="/ver-proyecto/:id">Detalles Proyecto</a></li>
     </ol>
   </nav>
@@ -101,7 +102,7 @@
                 </div>
             </div>
         </div>
-
+        <div class="main-content">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -147,6 +148,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
 
 
@@ -204,13 +206,16 @@
                             <h3>Actividades</h3>
                         </div>
                         <div class="card-body">
+
+                            <ngb-progressbar type="warning" class="mt-0" [value]="calcularPorcentajeActividadesCompletadas()" [striped]="true" [animated]="true"><i>{{ calcularPorcentajeActividadesCompletadas() }}%</i></ngb-progressbar>
+
                             <div class="row">
                                 <div class="col-md-4" *ngFor="let actividad of actividades">
-                                    <div class="project-list" (click)="redirectToActividadDetalle(actividad)">
-                                        <p>{{ actividad.nombreCorto }}</p>
+                                    <div class="project-list" (click)="redirectToActividad(actividad.idActividad)" [style.background-color]="obtenerColorFondo(actividad)" style="margin: 1%; padding: 2%; border-radius: 7px;">
+                                        <p [ngStyle]="{ 'color': obtenerColorTexto(actividad.estadoActividad) }">{{ actividad.nombreCorto }}</p>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" style="background-color: #117c5d;" (click)="redirectToActividad()">+
+                                <button class="btn btn-primary" style="background-color: #117c5d;" (click)="redirectToRegistrarActividadDetalle()">+
                                     Crear</button>
                             </div>
                         </div>

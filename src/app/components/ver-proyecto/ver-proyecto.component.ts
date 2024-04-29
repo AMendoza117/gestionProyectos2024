@@ -15,7 +15,11 @@ import { Actividad } from 'app/Models/Actividad.model';
 @Component({
   selector: 'app-ver-proyecto',
   templateUrl: './ver-proyecto.component.html',
-  styleUrls: ['./ver-proyecto.component.css']
+  styleUrls: ['./ver-proyecto.component.css'],
+  styles: [`
+    ngb-progressbar {
+    margin-top: 5rem;
+}`]
 })
 export class VerProyectoComponent implements OnInit {
   actividades: Actividad[];
@@ -124,11 +128,11 @@ redirectToProyectoDetalle(proyecto: Proyecto) {
   }
 
 
-redirectToActividad(){ 
-  if(!isNaN(this.idProyecto)){
-    const url = ['registrar-actividad', this.idProyecto];
+redirectToActividad(idActividad){ 
+  if(!isNaN(idActividad)){
+    const url = ['ver-actividad', idActividad];
       this.router.navigate(url);
-      console.log(this.idProyecto);
+      console.log(idActividad);
   }
 }
 
@@ -174,6 +178,10 @@ redirectToActividad(){
         console.error('Error en la solicitud para agregar stakeholder: ', error);
       }
     );
+  }
+
+  calcularPorcentajeActividadesCompletadas(): number {
+    return (this.numActividadesCompletadas / this.numActividades) * 100;
   }
 
   loadProyecto(idProyecto: number) {
@@ -240,8 +248,36 @@ redirectToActividad(){
     return parts[parts.length - 1];
   }
 
-  redirectToRegistrarActividad() {
+  redirectToRegistrarActividadDetalle() {
     this.router.navigate(['/registrar-actividad']);
+  }
+
+  obtenerColorFondo(actividad: Actividad): string {
+    // Lógica para determinar el color en función del estado de la actividad
+    switch (actividad.estadoActividad) {
+      case 'En progreso':
+        return '#e9ecef'; // Color gris por defecto
+      case 'Completada':
+        return '#28a745'; // Color verde cuando la actividad está completada
+      case 'Cancelada':
+        return '#dc3545'; // Color rojo cuando la actividad está cancelada
+      default:
+        return '#e9ecef'; // Color gris por defecto
+    }
+  }
+  
+  obtenerColorTexto(estadoActividad: string): string {
+    // Determina el color del texto en función del estado de la actividad
+    switch (estadoActividad) {
+      case 'En progreso':
+        return '#000'; // Color negro para el texto cuando la actividad está en progreso
+      case 'Completada':
+        return '#fff'; // Color blanco para el texto cuando la actividad está completada
+      case 'Cancelada':
+        return '#fff'; // Color blanco para el texto cuando la actividad está cancelada
+      default:
+        return '#000'; // Color negro por defecto
+    }
   }
   
 

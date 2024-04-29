@@ -67,6 +67,7 @@ import { NavbarComponent2 } from './shared/navbar2/navbar.component';
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule
     
   ],
   providers: [],

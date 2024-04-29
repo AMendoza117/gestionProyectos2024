@@ -6,6 +6,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ml-auto">
+                <div style="display: flex; align-items: center; max-width: 400px; margin: 0 auto;">
+                    <input type="text" [(ngModel)]="query" (keyup.enter)="search()" placeholder="Buscar en el sitio..."
+                        style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; flex: 1; margin-right: 10px;">
+                    <button (click)="search()"
+                        style="padding: 10px 20px; background-color: #117c5d; color: white; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease;">
+                        Buscar
+                    </button>
+                </div>
                 
                 <li class="nav-item" *ngIf="isLoggedIn()">
                     <a routerLink='/dashboard' class="nav-link">Inicio</a>

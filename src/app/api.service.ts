@@ -112,7 +112,7 @@ export class ApiService {
   }
 
   getActividadDetallada(idActividad: number): Observable<VerActividad> {
-    const url = `${this.apiUrl}/api/loadById.php?idActividad=${idActividad}`;
+    const url = `${this.apiUrl}/api/loadActividadById.php?idActividad=${idActividad}`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.get<VerActividad>(url, { headers });
