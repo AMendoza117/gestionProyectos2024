@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
-      <li class="breadcrumb-item"><a routerLink="/proyectos">Proyecto</a></li>
+      <li class="breadcrumb-item"><a routerLink="/proyectos">Proyectos</a></li>
       <li class="breadcrumb-item"><a routerLink="/ver-proyecto/:id">Detalles Proyecto</a></li>
     </ol>
   </nav>
@@ -210,9 +210,9 @@
                             <ngb-progressbar type="warning" class="mt-0" [value]="calcularPorcentajeActividadesCompletadas()" [striped]="true" [animated]="true"><i>{{ calcularPorcentajeActividadesCompletadas() }}%</i></ngb-progressbar>
 
                             <div class="row">
-                                <div class="col-md-4" *ngFor="let actividad of actividad">
-                                    <div class="project-list" (click)="redirectToActividadDetalle(actividad)">
-                                        <p>{{ actividad.nombreCorto }}</p>
+                                <div class="col-md-4" *ngFor="let actividad of actividades">
+                                    <div class="project-list" (click)="redirectToActividad(actividad.idActividad)" [style.background-color]="obtenerColorFondo(actividad)" style="margin: 1%; padding: 2%; border-radius: 7px;">
+                                        <p [ngStyle]="{ 'color': obtenerColorTexto(actividad.estadoActividad) }">{{ actividad.nombreCorto }}</p>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary" style="background-color: #117c5d;" (click)="redirectToRegistrarActividadDetalle()">+
@@ -223,6 +223,5 @@
                 </div>
             </div>
 </div>
-
 <app-mapa [isOpen]="isModalOpen"></app-mapa>
 <button (click)="openModal()">Mostrar Mapa del Sitio</button>
