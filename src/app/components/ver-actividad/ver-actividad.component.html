@@ -4,10 +4,12 @@
 <br>
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
-        <li class="breadcrumb-item"><a routerLink="/ver-actividad">Detalles Actividad</a></li>
+      <li class="breadcrumb-item"><a routerLink="/dashboard">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/proyectos">Proyectos</a></li>
+      <li class="breadcrumb-item"><a (click)="goBack()" style="color: #51bcda;">Detalles Proyecto</a></li>
+      <li class="breadcrumb-item"><a>Detalles Actividad</a></li>
     </ol>
-</nav>
+  </nav>
 
 <!-- ver-proyecto.component.html -->
 <div class="main-content">

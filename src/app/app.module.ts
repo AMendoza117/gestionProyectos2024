@@ -18,7 +18,6 @@ import { RegistrarProyectoComponent } from './components/registrar-proyecto/regi
 import { VerProyectoComponent } from './components/ver-proyecto/ver-proyecto.component';
 import { RCComponent } from './components/rc/rc.component';
 import { Error404Component } from './components/pantallaDeError/error404/error404.component';
-import { Error403Component } from './components/pantallaDeError/error403/error403.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ActualizarContraseñaComponent } from './components/recuperarContraseña/actualizarContraseña/actualizarContraseña.component';
 import { GetTokenComponent } from './components/recuperarContraseña/getToken/getToken.component';
@@ -42,7 +41,6 @@ import { NavbarComponent2 } from './shared/navbar2/navbar.component';
     VerProyectoComponent,
     RCComponent,
     Error404Component,
-    Error403Component,
     //ActualizarContraseñaComponent,
     //GetTokenComponent
     RegistrarActividadComponent,

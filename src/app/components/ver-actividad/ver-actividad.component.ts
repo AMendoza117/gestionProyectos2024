@@ -42,14 +42,17 @@ export class VerActividadComponent implements OnInit {
       this.mostrarTabla = true;
     }
 
-    this.route.paramMap.subscribe((params) => {
+    this.route.paramMap.subscribe((params) =>  {
       this.idActividad = +params.get('id'); // Convierte el parámetro a número y asigna a this.idProyecto
       if (!isNaN(this.idActividad)) {
         this.loadActividad(this.idActividad);
       }
     });
-
-  }    
+  }
+  
+  goBack(): void {
+    window.history.back();
+  }
 
   loadActividad(idActividad: number) {
     if(this.idActividad === this.idActividad){

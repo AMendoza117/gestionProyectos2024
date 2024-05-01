@@ -22,22 +22,24 @@ export class MapaComponent implements OnInit {
     idLiderProyecto: null,
     nombre: ''
   };
+  
+  showChat = false;
 
   constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-    document.addEventListener('DOMContentLoaded', function() {
-      const showSiteMapButton = document.getElementById('showSiteMap');
-      const siteMap = document.getElementById('siteMap');
-    
-      if (showSiteMapButton && siteMap) {
-        showSiteMapButton.addEventListener('click', function() {
-          siteMap.classList.toggle('hidden');
-        });
-      }
-    });
   }
 
+  toggleChat() {
+    this.showChat = !this.showChat;
+    if (!this.showChat) {
+      console.log('Chat cerrado');
+    }
+  }
+
+  navigateTo(route: string) {
+    this.router.navigateByUrl(route);
+  }
 }
 
 

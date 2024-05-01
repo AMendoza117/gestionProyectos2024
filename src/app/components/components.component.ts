@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-components',
@@ -19,7 +20,7 @@ export class ComponentsComponent implements OnInit {
     focus2;
     date: {year: number, month: number};
     model: NgbDateStruct;
-    constructor( private renderer : Renderer2) {}
+    constructor( private renderer : Renderer2, private toastr: ToastrService) {}
     isWeekend(date: NgbDateStruct) {
         const d = new Date(date.year, date.month - 1, date.day);
         return d.getDay() === 0 || d.getDay() === 6;
@@ -39,6 +40,18 @@ export class ComponentsComponent implements OnInit {
             input_group[i].children[0].addEventListener('blur', function (){
                 input_group[i].classList.remove('input-group-focus');
             });
+        }
+        
+        this.toastr.info('Conoce nuestros precios', 'Alerta').onTap.subscribe(() => {
+            this.scrollTo('contacto');
+        });
+
+    }
+
+    scrollTo(elementId: string): void {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
         }
     }
 

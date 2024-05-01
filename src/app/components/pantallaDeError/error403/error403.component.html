@@ -1,1 +1,17 @@
-<p>error403 works!</p>
+<p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type"  [dismissible]="false">
+        <div class="container" style="position: fixed; /* Establece la posición fija */
+        top: 20px; /* Ajusta la posición desde la parte superior */
+        right: 20px; /* Ajusta la posición desde la derecha */
+        z-index: 9999; /* Asegura que esté por encima de otros elementos */">
+            <ng-container *ngIf="alert.icon">
+                <i class="nc-icon {{alert.icon}}"></i>
+            </ng-container>
+
+            {{ alert.message }}
+            <button type="button" name="button" class="close" (click)="closeAlert(alert)">
+                <i class="nc-icon nc-simple-remove"></i>
+            </button>
+        </div>
+    </ngb-alert>
+</p>

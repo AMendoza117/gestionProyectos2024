@@ -1,27 +1,28 @@
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa del Sitio</title>
-  </head>
-  <body>
-    <button id="showSiteMap" style="margin-top: 400px;">Mostrar Mapa del Sitio</button>
-    <div id="siteMap" class="hidden">
-      <!-- Contenido del mapa del sitio -->
-      <ul>
-        <li><a routerLink="/dashboard" class="nav-link">Inicio</a></li>
-        <li><a routerLink="/proyectos" class="nav-link">Proyectos</a></li>
-        <li>
-          <ul>
-            <li><a routerLink="/registrar-proyecto" class="nav-link">Agregar Proyecto</a></li>
-            <li><a routerLink="/ver-proyecto" class="nav-link">Detalle Proyectos</a></li>
-          </ul>
-        </li>
-          <ul>
-            <li><a routerLink="/agregar-actividad" class="nav-link">Agregar Actividad</a></li>
-            <li><a routerLink="/ver-actividad" class="nav-link">Detalle Actividad</a></li>
-          </ul>
-        <li><a routerLink="/recuperar-contrasena" class="nav-link">Recuperar Contraseña</a></li>
-        <li><a routerLink="/actualizar-contrasena" class="nav-link">Actualizar Contraseña</a></li>
-        </ul>
+<div *ngIf="!showChat" class="chat-toggle" (click)="toggleChat()">Mapa del sitio</div>
+
+<div class="chat-container" *ngIf="showChat">
+    <div class="chat-header">
+      Mapa del sitio
+      <button class="close-button" (click)="toggleChat()">X</button>
     </div>
-  </body>
+    <div class="site-map">
+      <div class="page" >Home
+        <div class="sub-page" >Login
+          <div class="sub-page" >Inicio
+            <div class="sub-page" >Proyectos
+              <div class="sub-page" >Agregar Proyecto</div>
+              <div class="sub-page">Ver Proyecto Detallado
+                <div class="sub-page">Agregar Actividad</div>
+                <div class="sub-page">Ver Actividad Detallada</div>
+              </div>
+            </div>
+            <div class="sub-page" >Mi Perfil</div>
+            <div class="sub-page" >Gestión de Usuarios</div>
+          </div>
+        </div>
+        <div class="sub-page" >Registrar Proyecto Prueba</div>
+        <div class="sub-page" >Ver Proyecto Prueba</div>
+      </div>
+    </div>
+     
+  </div>

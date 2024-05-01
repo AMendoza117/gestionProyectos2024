@@ -249,7 +249,10 @@ redirectToActividad(idActividad){
   }
 
   redirectToRegistrarActividadDetalle() {
-    this.router.navigate(['/registrar-actividad']);
+    if(!isNaN(this.idProyecto)){
+      const url = ['registrar-actividad',this.idProyecto];
+      this.router.navigate(url);
+    }
   }
 
   obtenerColorFondo(actividad: Actividad): string {
